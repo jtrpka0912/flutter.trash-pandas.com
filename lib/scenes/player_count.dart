@@ -14,7 +14,14 @@ class PlayerCountPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text('How Many Players'),
+          Text(
+            'How Many Players',
+            // TODO: Put into a separate style file or something.
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           SizedBox(
             height: 27.0
           ),
