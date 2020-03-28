@@ -15,6 +15,9 @@ class PlayerCountPage extends StatelessWidget {
       body: Column(
         children: [
           Text('How Many Players'),
+          SizedBox(
+            height: 27.0
+          ),
           Row(
             children: <Widget>[
               PlayerCountButton(2),
