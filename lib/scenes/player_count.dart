@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Commons
 import '../commons/player_count_button.dart';
+import '../commons/bottom_app_bar.dart';
 
 // Scenes
 import '../scenes/player_names.dart';
@@ -25,6 +26,29 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
     setState(() {
       this._numberOfPlayers = playerCount;
     });
+  }
+
+  void onPressNextButton() {
+    // This will go to Player Name screen
+    print('No. of players: $_numberOfPlayers');
+    if(_numberOfPlayers > 1 && _numberOfPlayers < 5) {
+      // Do navigation
+      print('Go to next scene');
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            // TODO: Change to PlayerName Scene
+              builder: (context) => PlayerNamesScene()
+          )
+      );
+    } else {
+      // Show error message
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select the number of players that are playing.'),
+        ),
+      );
+    }
   }
 
   @override
@@ -58,40 +82,7 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
         ],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
-      bottomNavigationBar: BottomAppBar(
-        // Need to have a context builder for the snack bar to recognize the
-        //  context.
-        child: Builder(
-          builder: (context) => FlatButton(
-            color: Theme.of(context).accentColor,
-            textColor: Colors.white,
-            child: Text('Next'),
-            onPressed: () {
-              // This will go to Player Name screen
-              print('No. of players: $_numberOfPlayers');
-              if(_numberOfPlayers > 1 && _numberOfPlayers < 5) {
-                // Do navigation
-                print('Go to next scene');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    // TODO: Change to PlayerName Scene
-                    builder: (context) => PlayerNamesScene()
-                  )
-                );
-              } else {
-                // Show error message
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Please select the number of players that are playing.'),
-                  ),
-                );
-              }
-            },
-          )
-        ),
-        color: Theme.of(context).accentColor
-      ),
+      bottomNavigationBar: TPBottomAppBar('Next', onPressNextButton)
     );
   }
 }
