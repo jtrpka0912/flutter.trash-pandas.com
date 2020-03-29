@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // Commons
 import '../commons/player_count_button.dart';
 
+// Scenes
+import '../scenes/player_names.dart';
+
 class PlayerCountScene extends StatefulWidget {
   @override
   _PlayerCountSceneState createState() => _PlayerCountSceneState();
@@ -73,7 +76,7 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
                   context,
                   MaterialPageRoute(
                     // TODO: Change to PlayerName Scene
-                    builder: (context) => PlayerCountScene()
+                    builder: (context) => PlayerNamesScene()
                   )
                 );
               } else {
