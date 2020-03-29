@@ -1,12 +1,19 @@
 // Packages
 import 'package:flutter/material.dart';
 
+// Commons
+import '../commons/bottom_app_bar.dart';
+
 class PlayerNamesScene extends StatefulWidget {
   @override
   _PlayerNamesSceneState createState() => _PlayerNamesSceneState();
 }
 
 class _PlayerNamesSceneState extends State<PlayerNamesScene> {
+
+  void onPressNextButton() {
+    print('To the player card count scene!');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +35,7 @@ class _PlayerNamesSceneState extends State<PlayerNamesScene> {
           ]
         )
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Builder(
-          builder: (context) => FlatButton(
-            color: Theme.of(context).accentColor,
-            textColor: Colors.white,
-            child: Text('Next'),
-            onPressed: () {
-              print('Go to player card count scene.');
-            }
-          ),
-        ),
-        color: Theme.of(context).accentColor
-      ),
+      bottomNavigationBar: TPBottomAppBar('Next', onPressNextButton)
     );
   }
 }
