@@ -16,6 +16,7 @@ class PlayerCountButton extends StatelessWidget {
       padding: EdgeInsets.all(3.0),
       child: Text(playerNumber.toString()),
       onPressed: () {
+        // TODO: Change the color of the button to the accentColor when pressed
         updatePlayerCount(playerNumber);
       },
     );
