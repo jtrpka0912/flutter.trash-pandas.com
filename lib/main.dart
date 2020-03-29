@@ -1,5 +1,6 @@
 // Packages
 import 'package:flutter/material.dart';
+import 'package:trashpandas/scenes/player_names.dart';
 
 // Scenes
 import './scenes/player_count.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         accentColor: Colors.teal
       ),
-      home: PlayerCountScene(),
+      home: PlayerNamesScene(),
     );
   }
 }
