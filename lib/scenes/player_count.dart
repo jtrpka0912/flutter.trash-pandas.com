@@ -56,13 +56,38 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
         mainAxisAlignment: MainAxisAlignment.center,
       ),
       bottomNavigationBar: BottomAppBar(
-          child: FlatButton(
-              onPressed: () {
-                // This will go to Player Name screen
-                print('No. of players: $_numberOfPlayers');
-              },
-              child: Text('Next')
+        // Need to have a context builder for the snack bar to recognize the
+        //  context.
+        child: Builder(
+          builder: (context) => FlatButton(
+            color: Theme.of(context).accentColor,
+            textColor: Colors.white,
+            child: Text('Next'),
+            onPressed: () {
+              // This will go to Player Name screen
+              print('No. of players: $_numberOfPlayers');
+              if(_numberOfPlayers > 1 && _numberOfPlayers < 5) {
+                // Do navigation
+                print('Go to next scene');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    // Change to PlayerName Scene
+                    builder: (context) => PlayerCountScene()
+                  )
+                );
+              } else {
+                // Show error message
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Please select the number of players that are playing.'),
+                  ),
+                );
+              }
+            },
           )
+        ),
+        color: Theme.of(context).accentColor
       ),
     );
   }

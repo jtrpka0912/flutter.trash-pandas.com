@@ -14,9 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'Trash Panda Score',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        accentColor: Colors.teal
       ),
       home: PlayerCountScene(),
     );
   }
 }
-

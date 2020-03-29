@@ -11,7 +11,7 @@ class PlayerCountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
       textColor: Colors.white,
       padding: EdgeInsets.all(3.0),
       child: Text(playerNumber.toString()),
