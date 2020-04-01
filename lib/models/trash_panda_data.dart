@@ -1,5 +1,6 @@
 // Packages
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class TrashPandaData extends ChangeNotifier {
   List<Player> _players = [];
@@ -18,18 +19,18 @@ class TrashPandaData extends ChangeNotifier {
   // TODO: Apply Blammo Count
   void applyBlammoCount() {
     for(Player player in _players) {
-      player.increaseScore = player.blammoCount;
+      player.increaseScore = player.getCardCount(Card.Blammo);
     }
   }
 
   // TODO: Make the method to check which player had the most of a card
-  void _applyPositionPoints(
-      List<Player> players,
-      Card cardName,
-      int first,
-      int second,
-      int third) {
-
+  void _addCardPoints(
+    List<Player> players,
+    Card cardName,
+    int first,
+    int second,
+    int third) {
+    }
   }
 }
 
@@ -43,16 +44,16 @@ class Player {
     return _active;
   }
 
-  int get blammoCount => _cards[Card.Blammo];
+  int getCardCount(Card cardName) {
+    return _cards[cardName];
+  }
+
+  void setCardCount(Card cardName, int count) {
+    _cards[cardName] = count;
+  }
 
   set playerActive(bool active) => _active = true;
   set playerName(String name) => _name = name;
-  set shinyStash(int stashedShiny) => _cards[Card.Shiny] = stashedShiny;
-  set yumYumStash(int stashedYumYum) => _cards[Card.YumYum] = stashedYumYum;
-  set feeshStash(int stashedFeesh) => _cards[Card.Feesh] = stashedFeesh;
-  set mmmPieStash(int stashedMmmPie) => _cards[Card.MmmPie] = stashedMmmPie;
-  set nannersStash(int stashedNanners) => _cards[Card.Nanners] = stashedNanners;
-  set blammoStash(int stashedBlammo) => _cards[Card.Shiny] = stashedBlammo;
   set increaseScore(int points) => _score += points;
 }
 
