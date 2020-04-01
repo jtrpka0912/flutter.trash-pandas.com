@@ -16,6 +16,21 @@ class TrashPandaData extends ChangeNotifier {
   // TODO: Apply MmmPie Count
   // TODO: Apply Nanners Count
   // TODO: Apply Blammo Count
+  void applyBlammoCount() {
+    for(Player player in _players) {
+      player.increaseScore = player.blammoCount;
+    }
+  }
+
+  // TODO: Make the method to check which player had the most of a card
+  void _applyPositionPoints(
+      List<Player> players,
+      Card cardName,
+      int first,
+      int second,
+      int third) {
+
+  }
 }
 
 class Player {
@@ -28,14 +43,17 @@ class Player {
     return _active;
   }
 
-  set setPlayerActive(bool active) => _active = true;
-  set setPlayerName(String name) => _name = name;
-  set setShinyCount(stashedShiny) => _cards[Card.Shiny] = stashedShiny;
-  set setYumYumCount(stashedYumYum) => _cards[Card.YumYum] = stashedYumYum;
-  set setFeeshCount(stashedFeesh) => _cards[Card.Feesh] = stashedFeesh;
-  set setMmmPieCount(stashedMmmPie) => _cards[Card.MmmPie] = stashedMmmPie;
-  set setNannersCount(stashedNanners) => _cards[Card.Nanners] = stashedNanners;
-  set setBlammoCount(stashedBlammo) => _cards[Card.Shiny] = stashedBlammo;
+  int get blammoCount => _cards[Card.Blammo];
+
+  set playerActive(bool active) => _active = true;
+  set playerName(String name) => _name = name;
+  set shinyStash(int stashedShiny) => _cards[Card.Shiny] = stashedShiny;
+  set yumYumStash(int stashedYumYum) => _cards[Card.YumYum] = stashedYumYum;
+  set feeshStash(int stashedFeesh) => _cards[Card.Feesh] = stashedFeesh;
+  set mmmPieStash(int stashedMmmPie) => _cards[Card.MmmPie] = stashedMmmPie;
+  set nannersStash(int stashedNanners) => _cards[Card.Nanners] = stashedNanners;
+  set blammoStash(int stashedBlammo) => _cards[Card.Shiny] = stashedBlammo;
+  set increaseScore(int points) => _score += points;
 }
 
 enum Card {
