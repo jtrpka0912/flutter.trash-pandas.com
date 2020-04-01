@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Commons
 import '../commons/player_count_button.dart';
-import '../commons/bottom_app_bar.dart';
+import '../commons/bottom_button.dart';
 
 // Scenes
 import '../scenes/player_names.dart';
@@ -37,7 +37,6 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            // TODO: Change to PlayerName Scene
               builder: (context) => PlayerNamesScene()
           )
       );
@@ -82,7 +81,7 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
         ],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
-      bottomNavigationBar: TPBottomAppBar('Next', onPressNextButton)
+      bottomNavigationBar: BottomButton('Next', onPressNextButton)
     );
   }
 }

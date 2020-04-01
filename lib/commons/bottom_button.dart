@@ -1,11 +1,11 @@
 // Packages
 import 'package:flutter/material.dart';
 
-class TPBottomAppBar extends StatelessWidget {
+class BottomButton extends StatelessWidget {
   final String buttonText;
   final Function onPressedMethod;
 
-  TPBottomAppBar(this.buttonText, this.onPressedMethod);
+  BottomButton(this.buttonText, this.onPressedMethod);
 
   @override
   Widget build(BuildContext context) {

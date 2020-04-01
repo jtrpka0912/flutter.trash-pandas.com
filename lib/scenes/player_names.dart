@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Commons
-import '../commons/bottom_app_bar.dart';
+import '../commons/bottom_button.dart';
 import '../commons/player_name_field.dart';
 
 class PlayerNamesScene extends StatefulWidget {
@@ -64,7 +64,7 @@ class _PlayerNamesSceneState extends State<PlayerNamesScene> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: constructPlayerNameField().toList())
       ),
-      bottomNavigationBar: TPBottomAppBar('Next', onPressNextButton)
+      bottomNavigationBar: BottomButton('Next', onPressNextButton)
     );
   }
 }
