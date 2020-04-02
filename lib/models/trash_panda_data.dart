@@ -9,9 +9,29 @@ class TrashPandaData extends ChangeNotifier {
     return _players.length;
   }
 
+  void addPlayer(Player player) {
+    // Check if no more than four players
+    if(playerCount < 4) {
+      _players.add(player);
+    } else {
+      throw Exception('You can not have more than four players.');
+    }
+
+    // TODO: Throw an exception
+  }
+
   // TODO: Apply the tally methods here
   // ==================================
   // TODO: Apply Shiny Count
+  void applyShinyCount() {
+    _addCardPoints(
+        players: _players,
+        card: Card.Shiny,
+        firstPlacePoints: 3,
+        secondPlacePoints: 0,
+        thirdPlacePoints: 0
+    );
+  }
   // TODO: Apply YumYum Count
   // TODO: Apply Feesh Count
   // TODO: Apply MmmPie Count
@@ -24,13 +44,14 @@ class TrashPandaData extends ChangeNotifier {
   }
 
   // TODO: Make the method to check which player had the most of a card
-  void _addCardPoints(
+  void _addCardPoints({
     List<Player> players,
-    Card cardName,
-    int first,
-    int second,
-    int third) {
-    }
+    Card card,
+    int firstPlacePoints,
+    int secondPlacePoints,
+    int thirdPlacePoints
+  }) {
+
   }
 }
 
