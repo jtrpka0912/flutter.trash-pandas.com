@@ -16,8 +16,6 @@ class TrashPandaData extends ChangeNotifier {
     } else {
       throw Exception('You can not have more than four players.');
     }
-
-    // TODO: Throw an exception
   }
 
   // TODO: Apply the tally methods here
