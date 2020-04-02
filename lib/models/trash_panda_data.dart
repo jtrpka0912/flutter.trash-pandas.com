@@ -85,7 +85,7 @@ class TrashPandaData extends ChangeNotifier {
       int otherPlayerCardCount = otherPlayer.getCardCount(card);
 
       // Check if not already tied and matches other players' card count
-      if(!isTied && (mainPlayerCardCount == otherPlayerCardCount)) {
+      if(mainPlayerCardCount == otherPlayerCardCount) {
         isTied = true;
         higherThanPlayers++;
       }
@@ -97,6 +97,7 @@ class TrashPandaData extends ChangeNotifier {
     }
 
     // Get the number of points based on how many players the main player beat
+    // TODO: Need to refactor and made DRY
     switch(otherPlayers.length + 1) {
       case 2:
         switch(higherThanPlayers) {
