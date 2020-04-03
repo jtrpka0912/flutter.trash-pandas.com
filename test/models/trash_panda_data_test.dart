@@ -119,5 +119,62 @@ void main() {
       expect(playerTwo.score, 4);
       expect(playerThree.score, 1); // Gets one less (1 from 2) from tie
     });
+
+    test('Check who got points with different cards.', () {
+      TrashPandaData data = TrashPandaData();
+      data.addPlayers(4);
+
+      Player playerOne = data.getPlayer(0);
+      playerOne.name = 'Player One';
+      playerOne.setCardCount(Card.YumYum, 1);
+      playerOne.setCardCount(Card.Feesh, 3);
+      playerOne.setCardCount(Card.Blammo, 3);
+      playerOne.setCardCount(Card.Shiny, 1);
+
+      Player playerTwo = data.getPlayer(1);
+      playerTwo.name = 'Player Two';
+      playerTwo.setCardCount(Card.YumYum, 2);
+      playerTwo.setCardCount(Card.Feesh, 5);
+      playerTwo.setCardCount(Card.Blammo, 5);
+      playerTwo.setCardCount(Card.Shiny, 1);
+
+      Player playerThree = data.getPlayer(2);
+      playerThree.name = 'Player Three';
+      playerThree.setCardCount(Card.YumYum, 1);
+      playerThree.setCardCount(Card.Feesh, 2);
+      playerThree.setCardCount(Card.Blammo, 0);
+      playerThree.setCardCount(Card.Shiny, 1);
+
+      Player playerFour = data.getPlayer(3);
+      playerFour.name = 'Player Four';
+      playerFour.setCardCount(Card.YumYum, 3);
+      playerFour.setCardCount(Card.Feesh, 1);
+      playerFour.setCardCount(Card.Blammo, 1);
+      playerFour.setCardCount(Card.Shiny, 1);
+
+      data.applyYumYumCount();
+      expect(playerOne.score, 0);
+      expect(playerTwo.score, 2);
+      expect(playerThree.score, 0);
+      expect(playerFour.score, 4);
+
+      data.applyFeeshCount();
+      expect(playerOne.score, 0 + 3);
+      expect(playerTwo.score, 2 + 5);
+      expect(playerThree.score, 0 + 1);
+      expect(playerFour.score, 4 + 0);
+
+      data.applyBlammoCount();
+      expect(playerOne.score, 0 + 3 + 3);
+      expect(playerTwo.score, 2 + 5 + 5);
+      expect(playerThree.score, 0 + 1 + 0);
+      expect(playerFour.score, 4 + 0 + 1);
+
+      data.applyShinyCount(); // Something going wrong with four-way tie
+      expect(playerOne.score, 0 + 3 + 3 + 2);
+      expect(playerTwo.score, 2 + 5 + 5 + 2);
+      expect(playerThree.score, 0 + 1 + 0 + 2);
+      expect(playerFour.score, 4 + 0 + 1 + 2);
+    });
   });
 }

@@ -40,11 +40,10 @@ class TrashPandaData extends ChangeNotifier {
 
   void applyBlammoCount() {
     for(Player player in _players) {
-      player.increaseScore = player.getCardCount(Card.Blammo);
+      player.increaseScore(player.getCardCount(Card.Blammo));
     }
   }
 
-  // TODO: Make the method to check which player had the most of a card
   void _addCardPoints(
     Card card,
     int firstPlacePoints,
@@ -52,7 +51,7 @@ class TrashPandaData extends ChangeNotifier {
     int thirdPlacePoints
   ) {
     for(Player mainPlayer in _players) {
-      mainPlayer.increaseScore = _playerPosition(mainPlayer, card, firstPlacePoints, secondPlacePoints, thirdPlacePoints);
+      mainPlayer.increaseScore(_playerPosition(mainPlayer, card, firstPlacePoints, secondPlacePoints, thirdPlacePoints));
     }
   }
 
@@ -102,7 +101,7 @@ class TrashPandaData extends ChangeNotifier {
       case 2:
         switch(higherThanPlayers) {
           case 1:
-            return isTied ? firstPlacePoints - 1 : firstPlacePoints;
+            return isTied ? checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
           default:
             return secondPlacePoints; // No need to check for tie
         }
@@ -110,9 +109,9 @@ class TrashPandaData extends ChangeNotifier {
       case 3:
         switch(higherThanPlayers) {
           case 2:
-            return isTied ? firstPlacePoints - 1 : firstPlacePoints;
+            return isTied ? checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
           case 1:
-            return isTied ? secondPlacePoints - 1 : secondPlacePoints;
+            return isTied ? checkBelowZero(secondPlacePoints - 1) : secondPlacePoints;
           default:
             return thirdPlacePoints; // No need to check for tie
         }
@@ -120,11 +119,11 @@ class TrashPandaData extends ChangeNotifier {
       case 4:
         switch(higherThanPlayers) {
           case 3:
-            return isTied ? firstPlacePoints - 1 : firstPlacePoints;
+            return isTied ? checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
           case 2:
-            return isTied ? secondPlacePoints - 1 : secondPlacePoints;
+            return isTied ? checkBelowZero(secondPlacePoints - 1) : secondPlacePoints;
           case 1:
-            return isTied ? thirdPlacePoints - 1 : thirdPlacePoints;
+            return isTied ? checkBelowZero(thirdPlacePoints - 1) : thirdPlacePoints;
           default:
             return 0;
         }
@@ -133,16 +132,22 @@ class TrashPandaData extends ChangeNotifier {
     // TODO: Should encase inside try/catch block
     return 0;
   }
+
+  int checkBelowZero(int score) {
+    if(score < 0) {
+      return 0;
+    } else {
+      return score;
+    }
+  }
 }
 
 class Player {
-  bool _active = false;
-  String _name;
+  bool active = false;
+  String name;
   Map<Card, int> _cards = {};
   int _score = 0;
 
-  bool get isActive => _active;
-  String get name => _name;
   int get score => _score;
 
   int getCardCount(Card cardName) {
@@ -153,9 +158,7 @@ class Player {
     _cards[cardName] = count;
   }
 
-  set playerActive(bool active) => _active = true;
-  set playerName(String name) => _name = name;
-  set increaseScore(int points) => _score += points;
+  void increaseScore(int points) => _score += points;
 }
 
 enum Card {
