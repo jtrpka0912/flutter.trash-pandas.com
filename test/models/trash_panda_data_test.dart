@@ -79,15 +79,12 @@ void main() {
 
       Player playerOne = data.getPlayer(0);
       playerOne.setCardCount(Card.Feesh, 3);
-      expect(playerOne.getCardCount(Card.Feesh), 3);
 
       Player playerTwo = data.getPlayer(1);
       playerTwo.setCardCount(Card.Feesh, 5);
-      expect(playerTwo.getCardCount(Card.Feesh), 5);
 
       Player playerThree = data.getPlayer(2);
       playerThree.setCardCount(Card.Feesh, 2);
-      expect(playerThree.getCardCount(Card.Feesh), 2);
 
       data.applyFeeshCount();
 
@@ -103,15 +100,12 @@ void main() {
 
       Player playerOne = data.getPlayer(0);
       playerOne.setCardCount(Card.YumYum, 1);
-      expect(playerOne.getCardCount(Card.YumYum), 1);
 
       Player playerTwo = data.getPlayer(1);
       playerTwo.setCardCount(Card.YumYum, 2);
-      expect(playerTwo.getCardCount(Card.YumYum), 2);
 
       Player playerThree = data.getPlayer(2);
       playerThree.setCardCount(Card.YumYum, 1);
-      expect(playerThree.getCardCount(Card.YumYum), 1);
 
       data.applyYumYumCount();
 
@@ -153,24 +147,10 @@ void main() {
       playerFour.setCardCount(Card.Shiny, 1);
 
       data.applyYumYumCount();
-      expect(playerOne.score, 0);
-      expect(playerTwo.score, 2);
-      expect(playerThree.score, 0);
-      expect(playerFour.score, 4);
-
       data.applyFeeshCount();
-      expect(playerOne.score, 0 + 3);
-      expect(playerTwo.score, 2 + 5);
-      expect(playerThree.score, 0 + 1);
-      expect(playerFour.score, 4 + 0);
-
       data.applyBlammoCount();
-      expect(playerOne.score, 0 + 3 + 3);
-      expect(playerTwo.score, 2 + 5 + 5);
-      expect(playerThree.score, 0 + 1 + 0);
-      expect(playerFour.score, 4 + 0 + 1);
+      data.applyShinyCount();
 
-      data.applyShinyCount(); // Something going wrong with four-way tie
       expect(playerOne.score, 0 + 3 + 3 + 2);
       expect(playerTwo.score, 2 + 5 + 5 + 2);
       expect(playerThree.score, 0 + 1 + 0 + 2);
