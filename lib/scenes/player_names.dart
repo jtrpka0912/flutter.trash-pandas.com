@@ -65,8 +65,7 @@ class _PlayerNamesSceneState extends State<PlayerNamesScene> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: ListView(
           children: constructPlayerNameField().toList())
       ),
       bottomNavigationBar: BottomButton(
