@@ -20,7 +20,6 @@ class PlayerCountScene extends StatefulWidget {
 class _PlayerCountSceneState extends State<PlayerCountScene> {
   void onPressNextButton() {
     final trashPandaData = Provider.of<TrashPandaData>(context, listen: false);
-    print(trashPandaData);
 
     // This will go to Player Name screen
     print('No. of players: ${trashPandaData.playerCount}');

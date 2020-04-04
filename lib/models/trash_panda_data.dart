@@ -27,8 +27,6 @@ class TrashPandaData extends ChangeNotifier {
       throw Exception('You must have at least two players.');
     }
 
-    print('Player count: $playerCount');
-
     notifyListeners();
   }
 
