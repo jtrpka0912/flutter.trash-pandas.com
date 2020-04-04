@@ -2,6 +2,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+// Models
+import 'package:trashpandas/models/player.dart';
+import 'package:trashpandas/models/enums.dart' as trashPandaEnum;
+
 class TrashPandaData extends ChangeNotifier {
   List<Player> _players = [];
 
@@ -32,53 +36,46 @@ class TrashPandaData extends ChangeNotifier {
     }
   }
 
-  void applyShinyCount() => _addCardPoints(Card.Shiny, 3, 0, 0);
-  void applyYumYumCount() => _addCardPoints(Card.YumYum, 4, 2, 0);
-  void applyFeeshCount() => _addCardPoints(Card.Feesh, 5, 3, 1);
-  void applyMmmPieCount() => _addCardPoints(Card.MmmPie, 6, 2, 1);
-  void applyNannersCount() => _addCardPoints(Card.Nanners, 7, 0, 0);
+  void applyShinyCount() => _addCardPoints(trashPandaEnum.Card.Shiny, 3, 0, 0);
+  void applyYumYumCount() => _addCardPoints(trashPandaEnum.Card.YumYum, 4, 2, 0);
+  void applyFeeshCount() => _addCardPoints(trashPandaEnum.Card.Feesh, 5, 3, 1);
+  void applyMmmPieCount() => _addCardPoints(trashPandaEnum.Card.MmmPie, 6, 2, 1);
+  void applyNannersCount() => _addCardPoints(trashPandaEnum.Card.Nanners, 7, 0, 0);
 
   void applyBlammoCount() {
     for(Player player in _players) {
-      player.increaseScore(player.getCardCount(Card.Blammo));
+      player.increaseScore(player.getCardCount(trashPandaEnum.Card.Blammo));
     }
   }
 
   void _addCardPoints(
-    Card card,
+    trashPandaEnum.Card card,
     int firstPlacePoints,
     int secondPlacePoints,
     int thirdPlacePoints
   ) {
     for(Player mainPlayer in _players) {
-      mainPlayer.increaseScore(_playerPosition(mainPlayer, card, firstPlacePoints, secondPlacePoints, thirdPlacePoints));
+      mainPlayer.increaseScore(
+        _playerPosition(
+          mainPlayer,
+          card,
+          firstPlacePoints,
+          secondPlacePoints,
+          thirdPlacePoints
+        )
+      );
     }
   }
 
-  int _playerPosition(Player mainPlayer, Card card, int firstPlacePoints, int secondPlacePoints, int thirdPlacePoints) {
-    /// Pick main player
-    /// Loop through other players to see if any ties
-    ///   Yes: Add player index to a list or flagged for tie
-    ///   No: Check if higher than player
-    ///     Yes: Increment how many players main player is higher
-    ///     No: Continue
-    /// Once loop is done; determine how many points player(s) get
-    /// This is determined by player count
-    /// If four players, and main player beats (based on increment):
-    ///   0 players: fourth place
-    ///   1 player: third place
-    ///   2 players: second place
-    ///   3 players: first place
-    ///   If flagged for tie; decrease one point
-    ///   Four Players: 0: 4th, 1: 3rd, 2: 2nd, 3: 1st
-    ///   Three Players: 0: 3rd, 1: 2nd, 2: 1st
-    ///   Two Players: 0: 2nd, 1: 1st
-    ///
+  int _playerPosition(Player mainPlayer, trashPandaEnum.Card card, int firstPlacePoints, int secondPlacePoints, int thirdPlacePoints) {
+    // Make a copy of the players list
     List<Player> otherPlayers = List.from(_players);
     otherPlayers.remove(mainPlayer); // Remove the main player from list
-    bool isTied = false;
-    int higherThanPlayers = 0;
+    bool isTied = false; // Initialize a flag if player tied with another player
+    int higherThanPlayers = 0; // Make a count how players the main player beat
 
+    // Loop through other players to check if main player either tied,
+    //   or beat any players by card count.
     for(Player otherPlayer in otherPlayers) {
       int mainPlayerCardCount = mainPlayer.getCardCount(card);
       int otherPlayerCardCount = otherPlayer.getCardCount(card);
@@ -96,6 +93,7 @@ class TrashPandaData extends ChangeNotifier {
     }
 
     // Get the number of points based on how many players the main player beat
+    // If flagged for tie; then reduce the score by one point.
     // TODO: Need to refactor and made DRY
     switch(otherPlayers.length + 1) {
       case 2:
@@ -128,13 +126,15 @@ class TrashPandaData extends ChangeNotifier {
             return 0;
         }
     }
-    // Something happened
+
     // TODO: Should encase inside try/catch block
     return 0;
   }
 
   int checkBelowZero(int score) {
+    // This will check if tie breaker may reduce score below zero
     if(score < 0) {
+      // Return score of zero instead of negative number
       return 0;
     } else {
       return score;
@@ -142,30 +142,5 @@ class TrashPandaData extends ChangeNotifier {
   }
 }
 
-class Player {
-  bool active = false;
-  String name;
-  Map<Card, int> _cards = {};
-  int _score = 0;
 
-  int get score => _score;
 
-  int getCardCount(Card cardName) {
-    return _cards[cardName];
-  }
-
-  void setCardCount(Card cardName, int count) {
-    _cards[cardName] = count;
-  }
-
-  void increaseScore(int points) => _score += points;
-}
-
-enum Card {
-  Shiny,
-  YumYum,
-  Feesh,
-  MmmPie,
-  Nanners,
-  Blammo
-}
