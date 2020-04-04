@@ -33,6 +33,7 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
           )
       );
     } else {
+      // TODO: Broken! :(
       // Show error message
       Scaffold.of(context).showSnackBar(
         SnackBar(

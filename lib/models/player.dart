@@ -2,7 +2,6 @@
 import 'package:trashpandas/models/enums.dart';
 
 class Player {
-  bool active = false;
   String name;
   Map<Card, int> _cards = {};
   int _score = 0;

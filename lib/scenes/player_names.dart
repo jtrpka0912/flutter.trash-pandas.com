@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 // Models
 import 'package:trashpandas/models/trash_panda_data.dart';
+import 'package:trashpandas/models/player.dart';
 
 // Commons
 import 'package:trashpandas/commons/bottom_button.dart';
@@ -15,7 +16,6 @@ class PlayerNamesScene extends StatefulWidget {
 }
 
 class _PlayerNamesSceneState extends State<PlayerNamesScene> {
-
   List<PlayerNameField> constructPlayerNameField() {
     final trashPandaData = Provider.of<TrashPandaData>(context, listen: false);
     int playerCounter = trashPandaData.playerCount;
@@ -23,27 +23,8 @@ class _PlayerNamesSceneState extends State<PlayerNamesScene> {
 
     if(playerCounter > 1 && playerCounter < 5) {
       for(int x = 0; x < playerCounter; x++) {
-        // TODO: Find a package that can convert a number to a word
-        // Example: 1 to One
-        String playerPositionString;
-        switch (x) {
-          case 0:
-            playerPositionString = 'one';
-            break;
-          case 1:
-            playerPositionString = 'two';
-            break;
-          case 2:
-            playerPositionString = 'three';
-            break;
-          case 3:
-            playerPositionString = 'four';
-            break;
-          default:
-            playerPositionString = 'racoon';
-        }
-
-        fields.add(PlayerNameField('Player $playerPositionString name'));
+        fields.add(PlayerNameField(playerIndex: x)
+        );
       }
     } else {
       // TODO: Need to show something if invalid amount.
@@ -54,6 +35,28 @@ class _PlayerNamesSceneState extends State<PlayerNamesScene> {
 
   void onPressNextButton() {
     print('To the player card count scene!');
+    final trashPandaData = Provider.of<TrashPandaData>(context, listen: false);
+    bool isValid = true;
+
+    for(int x = 0; x < trashPandaData.playerCount; x++) {
+      Player player = trashPandaData.getPlayer(x);
+      if(player.name == '' || player.name == null) {
+        isValid = false;
+      }
+    }
+
+    if(isValid) {
+      // Go to next scene
+      print('Go to next scene!');
+    } else {
+      // TODO: Broken! :(
+      // Launch snack bar
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please enter the name for all players.'),
+        ),
+      );
+    }
   }
 
   @override
