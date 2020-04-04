@@ -1,9 +1,13 @@
 // Packages
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+// Models
+import 'package:trashpandas/models/trash_panda_data.dart';
 
 // Commons
-import '../commons/bottom_button.dart';
-import '../commons/player_name_field.dart';
+import 'package:trashpandas/commons/bottom_button.dart';
+import 'package:trashpandas/commons/player_name_field.dart';
 
 class PlayerNamesScene extends StatefulWidget {
   @override
@@ -13,7 +17,8 @@ class PlayerNamesScene extends StatefulWidget {
 class _PlayerNamesSceneState extends State<PlayerNamesScene> {
 
   List<PlayerNameField> constructPlayerNameField() {
-    int playerCounter = 2;
+    final trashPandaData = Provider.of<TrashPandaData>(context, listen: false);
+    int playerCounter = trashPandaData.playerCount;
     List<PlayerNameField> fields = [];
 
     if(playerCounter > 1 && playerCounter < 5) {
@@ -64,7 +69,10 @@ class _PlayerNamesSceneState extends State<PlayerNamesScene> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: constructPlayerNameField().toList())
       ),
-      bottomNavigationBar: BottomButton('Next', onPressNextButton)
+      bottomNavigationBar: BottomButton(
+        buttonText: 'Next',
+        onPressedMethod: onPressNextButton
+      )
     );
   }
 }

@@ -1,12 +1,16 @@
 // Packages
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+// Models
+import 'package:trashpandas/models/trash_panda_data.dart';
 
 // Commons
-import '../commons/player_count_button.dart';
-import '../commons/bottom_button.dart';
+import 'package:trashpandas/commons/player_count_button.dart';
+import 'package:trashpandas/commons/bottom_button.dart';
 
 // Scenes
-import '../scenes/player_names.dart';
+import 'package:trashpandas/scenes/player_names.dart';
 
 class PlayerCountScene extends StatefulWidget {
   @override
@@ -14,24 +18,12 @@ class PlayerCountScene extends StatefulWidget {
 }
 
 class _PlayerCountSceneState extends State<PlayerCountScene> {
-  int _numberOfPlayers;
-
-  @override
-  void initState() {
-    this._numberOfPlayers = 0;
-    super.initState();
-  }
-
-  void updatePlayerCount(int playerCount) {
-    setState(() {
-      this._numberOfPlayers = playerCount;
-    });
-  }
-
   void onPressNextButton() {
+    final trashPandaData = Provider.of<TrashPandaData>(context, listen: false);
+
     // This will go to Player Name screen
-    print('No. of players: $_numberOfPlayers');
-    if(_numberOfPlayers > 1 && _numberOfPlayers < 5) {
+    print('No. of players: ${trashPandaData.playerCount}');
+    if(trashPandaData.playerCount > 1 && trashPandaData.playerCount < 5) {
       // Do navigation
       print('Go to next scene');
       Navigator.push(
@@ -72,16 +64,19 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
           ),
           Row(
             children: <Widget>[
-              PlayerCountButton(2, updatePlayerCount),
-              PlayerCountButton(3, updatePlayerCount),
-              PlayerCountButton(4, updatePlayerCount)
+              PlayerCountButton(numberOfPlayers: 2),
+              PlayerCountButton(numberOfPlayers: 3),
+              PlayerCountButton(numberOfPlayers: 4)
             ],
             mainAxisAlignment: MainAxisAlignment.spaceAround,
           )
         ],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
-      bottomNavigationBar: BottomButton('Next', onPressNextButton)
+      bottomNavigationBar: BottomButton(
+        buttonText: 'Next',
+        onPressedMethod: onPressNextButton
+      )
     );
   }
 }
