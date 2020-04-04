@@ -64,7 +64,10 @@ class _PlayerNamesSceneState extends State<PlayerNamesScene> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: constructPlayerNameField().toList())
       ),
-      bottomNavigationBar: BottomButton('Next', onPressNextButton)
+      bottomNavigationBar: BottomButton(
+        buttonText: 'Next',
+        onPressedMethod: onPressNextButton
+      )
     );
   }
 }

@@ -1,6 +1,7 @@
 // Packages
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Models
 import 'package:trashpandas/models/player.dart';
@@ -25,6 +26,10 @@ class TrashPandaData extends ChangeNotifier {
     } else if(howManyPlayers < 2) {
       throw Exception('You must have at least two players.');
     }
+
+    print('Player count: $playerCount');
+
+    notifyListeners();
   }
 
   Player getPlayer(int playerIndex) {
