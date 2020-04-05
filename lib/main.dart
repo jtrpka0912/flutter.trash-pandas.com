@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => TrashPandaData(),
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => TrashPandaData(),
       child: MaterialApp(
         title: 'Trash Panda Score',
         theme: ThemeData(
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.teal
         ),
         home: PlayerCountScene(),
-      )
+      ),
     );
   }
 }
