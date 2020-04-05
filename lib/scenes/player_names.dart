@@ -7,7 +7,6 @@ import 'package:trashpandas/models/trash_panda_data.dart';
 import 'package:trashpandas/models/player.dart';
 
 // Commons
-import 'package:trashpandas/commons/bottom_button.dart';
 import 'package:trashpandas/commons/player_name_field.dart';
 
 class PlayerNamesScene extends StatelessWidget {
@@ -41,34 +40,41 @@ class PlayerNamesScene extends StatelessWidget {
             child: ListView(
               children: constructPlayerNameField(trashPandaData).toList())
           ),
-          bottomNavigationBar: BottomButton(
-            buttonText: 'Next',
-            onPressedMethod: () {
-              print('To the player card count scene!');
-              bool isValid = true;
+          // TODO: Figure out how to make this more DRY with other pages
+          bottomNavigationBar: BottomAppBar(
+            color: Theme.of(context).accentColor,
+            child: Builder(
+              builder: (context) => FlatButton(
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                child: Text('Next'),
+                onPressed: () {
+                  print('To the player card count scene!');
+                  bool isValid = true;
 
-              for(int x = 0; x < trashPandaData.playerCount; x++) {
-                Player player = trashPandaData.getPlayer(x);
-                print(player.name);
-                if(player.name == '' || player.name == null) {
-                  isValid = false;
-                }
-              }
+                  for(int x = 0; x < trashPandaData.playerCount; x++) {
+                    Player player = trashPandaData.getPlayer(x);
+                    print(player.name);
+                    if(player.name == '' || player.name == null) {
+                      isValid = false;
+                    }
+                  }
 
-              if(isValid) {
-                // Go to next scene
-                print('Go to next scene!');
-              } else {
-                // TODO: Broken! :(
-                // Launch snack bar
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Please enter the name for all players.'),
-                  ),
-                );
-              }
-            }
-          )
+                  if(isValid) {
+                    // Go to next scene
+                    print('Go to next scene!');
+                  } else {
+                    // Launch snack bar
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Please enter the name for all players.'),
+                      ),
+                    );
+                  }
+                },
+              )
+            ),
+          ),
         );
       }
     );

@@ -7,12 +7,12 @@ import 'package:trashpandas/models/trash_panda_data.dart';
 
 // Commons
 import 'package:trashpandas/commons/player_count_button.dart';
-import 'package:trashpandas/commons/bottom_button.dart';
 
 // Scenes
 import 'package:trashpandas/scenes/player_names.dart';
 
 class PlayerCountScene extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TrashPandaData>(
@@ -46,31 +46,38 @@ class PlayerCountScene extends StatelessWidget {
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),
-          bottomNavigationBar: BottomButton(
-            buttonText: 'Next',
-            onPressedMethod: () {
-              // This will go to Player Name screen
-              print('No. of players: ${trashPandaData.playerCount}');
-              if(trashPandaData.playerCount > 1 && trashPandaData.playerCount < 5) {
-                // Do navigation
-                print('Go to next scene');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PlayerNamesScene()
-                  )
-                );
-              } else {
-                // TODO: Broken! :(
-                // Show error message
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Please select the number of players that are playing.'),
-                  ),
-                );
-              }
-            }
-          )
+          // TODO: Figure out how to make this more DRY with other pages
+          bottomNavigationBar: BottomAppBar(
+            color: Theme.of(context).accentColor,
+            child: Builder(
+              builder: (context) => FlatButton(
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                child: Text('Next'),
+                onPressed: () {
+                  // This will go to Player Name screen
+                  print('No. of players: ${trashPandaData.playerCount}');
+                  if(trashPandaData.playerCount > 1 && trashPandaData.playerCount < 5) {
+                    // Do navigation
+                    print('Go to next scene');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PlayerNamesScene()
+                        )
+                    );
+                  } else {
+                    // Show error message
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Please select the number of players that are playing.'),
+                      ),
+                    );
+                  }
+                },
+              )
+            )
+          ),
         );
       }
     );
