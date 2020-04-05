@@ -37,24 +37,31 @@ class PlayerNameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TextField(
-          onSubmitted: (String playerName) {
-            final trashPandaData = Provider.of<TrashPandaData>(context, listen: false);
-            trashPandaData.getPlayer(playerIndex).name = playerName;
-          },
-          decoration: InputDecoration(
-            labelText: buildFieldLabel(playerIndex),
-            labelStyle: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500
+    return Consumer<TrashPandaData>(
+      builder: (context, trashPandaData, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TextField(
+              // TODO: Figure out how to set default values
+              onSubmitted: (String playerName) {
+                trashPandaData.getPlayer(playerIndex).name = playerName;
+              },
+              onChanged: (String playerName) {
+                trashPandaData.getPlayer(playerIndex).name = playerName;
+              },
+              decoration: InputDecoration(
+                labelText: buildFieldLabel(playerIndex),
+                labelStyle: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500
+                ),
+              ),
             ),
-          ),
-        ),
-        SizedBox(height: 36.0)
-      ],
+            SizedBox(height: 36.0)
+          ],
+        );
+      }
     );
   }
 }

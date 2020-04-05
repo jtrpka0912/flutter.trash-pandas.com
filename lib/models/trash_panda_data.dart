@@ -1,20 +1,17 @@
 // Packages
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // Models
 import 'package:trashpandas/models/player.dart';
 import 'package:trashpandas/models/enums.dart' as trashPandaEnum;
 
 class TrashPandaData extends ChangeNotifier {
+  // TODO: Look into UnModifiableListView
   List<Player> _players = [];
 
-  int get playerCount {
-    return _players.length;
-  }
-
   void addPlayers(int howManyPlayers) {
+    print('Calling addPlayers ${howManyPlayers.toString()}');
     _players.clear(); // Reset the player listing
 
     if(howManyPlayers > 1 && howManyPlayers < 5) {
@@ -30,6 +27,10 @@ class TrashPandaData extends ChangeNotifier {
     notifyListeners();
   }
 
+  int get playerCount {
+    return _players.length;
+  }
+
   Player getPlayer(int playerIndex) {
     try {
       return _players[playerIndex];
@@ -37,6 +38,12 @@ class TrashPandaData extends ChangeNotifier {
       // TODO: May want to do something with the exception or throw one.
       return null;
     }
+  }
+
+  void setPlayerName(int playerIndex, String playerName) {
+    // Need to explicitly set name, from here, to notify listeners.
+    getPlayer(playerIndex).name = playerName;
+    notifyListeners();
   }
 
   void applyShinyCount() => _addCardPoints(trashPandaEnum.Card.Shiny, 3, 0, 0);
@@ -70,7 +77,13 @@ class TrashPandaData extends ChangeNotifier {
     }
   }
 
-  int _playerPosition(Player mainPlayer, trashPandaEnum.Card card, int firstPlacePoints, int secondPlacePoints, int thirdPlacePoints) {
+  int _playerPosition(
+    Player mainPlayer,
+    trashPandaEnum.Card card,
+    int firstPlacePoints,
+    int secondPlacePoints,
+    int thirdPlacePoints
+  ) {
     // Make a copy of the players list
     List<Player> otherPlayers = List.from(_players);
     otherPlayers.remove(mainPlayer); // Remove the main player from list
@@ -102,7 +115,7 @@ class TrashPandaData extends ChangeNotifier {
       case 2:
         switch(higherThanPlayers) {
           case 1:
-            return isTied ? checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
+            return isTied ? _checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
           default:
             return secondPlacePoints; // No need to check for tie
         }
@@ -110,9 +123,9 @@ class TrashPandaData extends ChangeNotifier {
       case 3:
         switch(higherThanPlayers) {
           case 2:
-            return isTied ? checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
+            return isTied ? _checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
           case 1:
-            return isTied ? checkBelowZero(secondPlacePoints - 1) : secondPlacePoints;
+            return isTied ? _checkBelowZero(secondPlacePoints - 1) : secondPlacePoints;
           default:
             return thirdPlacePoints; // No need to check for tie
         }
@@ -120,11 +133,11 @@ class TrashPandaData extends ChangeNotifier {
       case 4:
         switch(higherThanPlayers) {
           case 3:
-            return isTied ? checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
+            return isTied ? _checkBelowZero(firstPlacePoints - 1) : firstPlacePoints;
           case 2:
-            return isTied ? checkBelowZero(secondPlacePoints - 1) : secondPlacePoints;
+            return isTied ? _checkBelowZero(secondPlacePoints - 1) : secondPlacePoints;
           case 1:
-            return isTied ? checkBelowZero(thirdPlacePoints - 1) : thirdPlacePoints;
+            return isTied ? _checkBelowZero(thirdPlacePoints - 1) : thirdPlacePoints;
           default:
             return 0;
         }
@@ -134,7 +147,7 @@ class TrashPandaData extends ChangeNotifier {
     return 0;
   }
 
-  int checkBelowZero(int score) {
+  int _checkBelowZero(int score) {
     // This will check if tie breaker may reduce score below zero
     if(score < 0) {
       // Return score of zero instead of negative number
@@ -144,6 +157,3 @@ class TrashPandaData extends ChangeNotifier {
     }
   }
 }
-
-
-
