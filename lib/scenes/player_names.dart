@@ -10,6 +10,9 @@ import 'package:trashpandas/models/player.dart';
 import 'package:trashpandas/commons/player_name_field.dart';
 
 class PlayerNamesScene extends StatelessWidget {
+
+  final _playerNameKey = GlobalKey<FormState>();
+
   List<PlayerNameField> constructPlayerNameField(TrashPandaData trashPandaData) {
     int playerCounter = trashPandaData.playerCount;
     List<PlayerNameField> fields = [];
@@ -37,8 +40,12 @@ class PlayerNamesScene extends StatelessWidget {
           ),
           body: Container(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
-            child: ListView(
-              children: constructPlayerNameField(trashPandaData).toList())
+            child: Form(
+              key: _playerNameKey,
+              child: ListView(
+                children: constructPlayerNameField(trashPandaData).toList()
+              )
+            )
           ),
           // TODO: Figure out how to make this more DRY with other pages
           bottomNavigationBar: BottomAppBar(
@@ -49,18 +56,7 @@ class PlayerNamesScene extends StatelessWidget {
                 textColor: Colors.white,
                 child: Text('Next'),
                 onPressed: () {
-                  print('To the player card count scene!');
-                  bool isValid = true;
-
-                  for(int x = 0; x < trashPandaData.playerCount; x++) {
-                    Player player = trashPandaData.getPlayer(x);
-                    print(player.name);
-                    if(player.name == '' || player.name == null) {
-                      isValid = false;
-                    }
-                  }
-
-                  if(isValid) {
+                  if(_playerNameKey.currentState.validate()) {
                     // Go to next scene
                     print('Go to next scene!');
                   } else {
