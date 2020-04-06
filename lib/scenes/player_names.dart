@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 // Models
 import 'package:trashpandas/models/trash_panda_data.dart';
-import 'package:trashpandas/models/player.dart';
 
 // Commons
 import 'package:trashpandas/commons/player_name_field.dart';
@@ -49,10 +48,9 @@ class PlayerNamesScene extends StatelessWidget {
           ),
           // TODO: Figure out how to make this more DRY with other pages
           bottomNavigationBar: BottomAppBar(
-            color: Theme.of(context).accentColor,
             child: Builder(
               builder: (context) => FlatButton(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).bottomAppBarTheme.color,
                 textColor: Colors.white,
                 child: Text('Next'),
                 onPressed: () {

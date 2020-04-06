@@ -59,10 +59,9 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
             ),
             // TODO: Figure out how to make this more DRY with other pages
             bottomNavigationBar: BottomAppBar(
-                color: Theme.of(context).accentColor,
                 child: Builder(
                     builder: (context) => FlatButton(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).bottomAppBarTheme.color,
                       textColor: Colors.white,
                       child: Text('Next'),
                       onPressed: () {
