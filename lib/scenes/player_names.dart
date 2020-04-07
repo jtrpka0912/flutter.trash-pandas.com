@@ -35,7 +35,7 @@ class PlayerNamesScene extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text('Player Names'),
-            centerTitle: true,
+            centerTitle: true
           ),
           body: Container(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
