@@ -59,35 +59,33 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
             ),
             // TODO: Figure out how to make this more DRY with other pages
             bottomNavigationBar: BottomAppBar(
-                color: Theme.of(context).accentColor,
-                child: Builder(
-                    builder: (context) => FlatButton(
-                      color: Theme.of(context).accentColor,
-                      textColor: Colors.white,
-                      child: Text('Next'),
-                      onPressed: () {
-                        // This will go to Player Name screen
-                        print('No. of players: ${trashPandaData.playerCount}');
-                        if(trashPandaData.playerCount > 1 && trashPandaData.playerCount < 5) {
-                          // Do navigation
-                          print('Go to next scene');
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PlayerNamesScene()
-                              )
-                          );
-                        } else {
-                          // Show error message
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Please select the number of players that are playing.'),
-                            ),
-                          );
-                        }
-                      },
-                    )
+              child: Builder(
+                builder: (context) => FlatButton(
+                  color: Theme.of(context).bottomAppBarTheme.color,
+                  child: Text('Next'),
+                  onPressed: () {
+                    // This will go to Player Name screen
+                    print('No. of players: ${trashPandaData.playerCount}');
+                    if(trashPandaData.playerCount > 1 && trashPandaData.playerCount < 5) {
+                      // Do navigation
+                      print('Go to next scene');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PlayerNamesScene()
+                          )
+                      );
+                    } else {
+                      // Show error message
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please select the number of players that are playing.'),
+                        ),
+                      );
+                    }
+                  },
                 )
+              )
             ),
           );
         }

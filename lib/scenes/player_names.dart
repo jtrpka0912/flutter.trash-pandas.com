@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 // Models
 import 'package:trashpandas/models/trash_panda_data.dart';
-import 'package:trashpandas/models/player.dart';
 
 // Commons
 import 'package:trashpandas/commons/player_name_field.dart';
@@ -36,7 +35,7 @@ class PlayerNamesScene extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text('Player Names'),
-            centerTitle: true,
+            centerTitle: true
           ),
           body: Container(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
@@ -49,11 +48,9 @@ class PlayerNamesScene extends StatelessWidget {
           ),
           // TODO: Figure out how to make this more DRY with other pages
           bottomNavigationBar: BottomAppBar(
-            color: Theme.of(context).accentColor,
             child: Builder(
               builder: (context) => FlatButton(
-                color: Theme.of(context).accentColor,
-                textColor: Colors.white,
+                color: Theme.of(context).bottomAppBarTheme.color,
                 child: Text('Next'),
                 onPressed: () {
                   if(_playerNameKey.currentState.validate()) {
