@@ -21,17 +21,21 @@ class MyApp extends StatelessWidget {
       create: (BuildContext context) => TrashPandaData(),
       child: MaterialApp(
         title: 'Trash Panda Score',
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: boxArtFenceColor,
           accentColor: boxArtSkyColor,
           scaffoldBackgroundColor: Colors.white,
+          errorColor: boxArtFenceColor,
           appBarTheme: AppBarTheme(
             color: boxArtSkyColor
           ),
           bottomAppBarTheme: BottomAppBarTheme(
             color: boxArtSkyColor
+          ),
+          buttonTheme: ButtonThemeData(
+            textTheme: ButtonTextTheme.primary
           ),
           snackBarTheme: SnackBarThemeData(
             backgroundColor: boxArtFenceColor,
@@ -45,11 +49,15 @@ class MyApp extends StatelessWidget {
           primaryColor: boxArtFenceColor,
           accentColor: boxArtSkyColor,
           scaffoldBackgroundColor: Colors.black,
+          errorColor: boxArtFenceColor,
           appBarTheme: AppBarTheme(
             color: boxArtFenceColor
           ),
           bottomAppBarTheme: BottomAppBarTheme(
             color: boxArtFenceColor
+          ),
+          buttonTheme: ButtonThemeData(
+              textTheme: ButtonTextTheme.primary
           ),
           snackBarTheme: SnackBarThemeData(
             backgroundColor: boxArtFenceColor,

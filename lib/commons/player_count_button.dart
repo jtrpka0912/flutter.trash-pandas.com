@@ -18,7 +18,6 @@ class PlayerCountButton extends StatelessWidget {
       builder: (context, trashPandaData, child) {
         return FlatButton(
           color: buttonColor,
-          textColor: Colors.white,
           padding: EdgeInsets.all(3.0),
           child: Text(numberOfPlayers.toString()),
           onPressed: () {

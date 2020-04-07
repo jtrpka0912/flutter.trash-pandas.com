@@ -62,7 +62,6 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
                 child: Builder(
                     builder: (context) => FlatButton(
                       color: Theme.of(context).bottomAppBarTheme.color,
-                      textColor: Colors.white,
                       child: Text('Next'),
                       onPressed: () {
                         // This will go to Player Name screen

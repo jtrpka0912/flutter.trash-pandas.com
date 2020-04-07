@@ -51,7 +51,6 @@ class PlayerNamesScene extends StatelessWidget {
             child: Builder(
               builder: (context) => FlatButton(
                 color: Theme.of(context).bottomAppBarTheme.color,
-                textColor: Colors.white,
                 child: Text('Next'),
                 onPressed: () {
                   if(_playerNameKey.currentState.validate()) {
