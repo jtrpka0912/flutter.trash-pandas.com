@@ -8,7 +8,11 @@ import 'package:trashpandas/models/trash_panda_data.dart';
 // Commons
 import 'package:trashpandas/commons/player_name_field.dart';
 
+// Scenes
+import 'package:trashpandas/scenes/card_count.dart';
+
 class PlayerNamesScene extends StatelessWidget {
+  static const routeName = '/name';
 
   final _playerNameKey = GlobalKey<FormState>();
 
@@ -55,7 +59,11 @@ class PlayerNamesScene extends StatelessWidget {
                 onPressed: () {
                   if(_playerNameKey.currentState.validate()) {
                     // Go to next scene
-                    print('Go to next scene!');
+                    Navigator.pushNamed(
+                      context,
+                      CardCountScene.routeName,
+                      arguments: 0
+                    );
                   } else {
                     // Launch snack bar
                     Scaffold.of(context).showSnackBar(

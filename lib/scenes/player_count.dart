@@ -12,6 +12,8 @@ import 'package:trashpandas/commons/player_count_button.dart';
 import 'package:trashpandas/scenes/player_names.dart';
 
 class PlayerCountScene extends StatefulWidget {
+  static const routeName = '/';
+
   @override
   _PlayerCountSceneState createState() => _PlayerCountSceneState();
 }
@@ -65,16 +67,9 @@ class _PlayerCountSceneState extends State<PlayerCountScene> {
                   child: Text('Next'),
                   onPressed: () {
                     // This will go to Player Name screen
-                    print('No. of players: ${trashPandaData.playerCount}');
                     if(trashPandaData.playerCount > 1 && trashPandaData.playerCount < 5) {
                       // Do navigation
-                      print('Go to next scene');
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PlayerNamesScene()
-                          )
-                      );
+                      Navigator.pushNamed(context, '/name');
                     } else {
                       // Show error message
                       Scaffold.of(context).showSnackBar(
