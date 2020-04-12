@@ -3,6 +3,7 @@ import 'package:trashpandas/models/enums.dart';
 
 class Player {
   String name;
+  // TODO: Add one for individual scores for final tally break down
   Map<CardNames, int> _cards = {
     CardNames.Shiny: 0,
     CardNames.YumYum: 0,
