@@ -1,10 +1,12 @@
 // Packages
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // Commons
 import 'package:trashpandas/commons/card_count_field.dart';
+
+// Layouts
+import 'package:trashpandas/layout/card_count_landscape.dart';
 
 // Models
 import 'package:trashpandas/models/trash_panda_data.dart';
@@ -57,6 +59,18 @@ class CardCountScene extends StatelessWidget {
   Widget build(BuildContext context) {
     final int playerIndex = ModalRoute.of(context).settings.arguments;
 
+    Widget layoutByOrientation(TrashPandaData trashPandaData) {
+      if(MediaQuery.of(context).orientation == Orientation.portrait) {
+        print('Do something');
+        return null;
+      } else {
+        return CardCountLayoutLandscape(
+          leftColumnFields: constructCardCountFields(trashPandaData, playerIndex, true),
+          rightColumnFields: constructCardCountFields(trashPandaData, playerIndex, true),
+        );
+      }
+    }
+
     return Consumer<TrashPandaData>(
       builder: (context, trashPandaData, child) {
         Player player = trashPandaData.getPlayer(playerIndex);
@@ -72,21 +86,7 @@ class CardCountScene extends StatelessWidget {
           body: Center(
             child: Form(
               key: _cardCountKey,
-              child: Row(
-                children: <Widget>[
-                  // Need to make it flexible to allow the text fields to adjust width
-                  Flexible(
-                    child: ListView(
-                      children: constructCardCountFields(trashPandaData, playerIndex, true),
-                    )
-                  ),
-                  Flexible(
-                    child: ListView(
-                      children: constructCardCountFields(trashPandaData, playerIndex, false),
-                    )
-                  )
-                ],
-              )
+              child: layoutByOrientation(trashPandaData)
             )
           ),
           bottomNavigationBar: BottomAppBar(
