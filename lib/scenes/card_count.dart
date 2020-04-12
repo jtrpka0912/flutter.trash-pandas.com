@@ -28,6 +28,7 @@ class CardCountScene extends StatelessWidget {
       int playerIndex) {
     List<CardCountField> fields = [];
 
+    // Loop through all of the card names
     for(CardNames cardName in CardNames.values) {
       CardCountField field = CardCountField(
         playerIndex: playerIndex,
