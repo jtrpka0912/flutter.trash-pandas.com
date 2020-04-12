@@ -1,4 +1,5 @@
 // Packages
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +24,7 @@ class CardCountScene extends StatelessWidget {
     return playerIndex + 1 < playerCount;
   }
 
-  List<CardCountField> constructCardCountFields(
-      TrashPandaData trashPandaData,
-      int playerIndex,
-      bool isLeft) {
+  List<CardCountField> constructCardCountFields(TrashPandaData trashPandaData, int playerIndex, bool isLeft) {
     List<CardCountField> leftColumnFields = [];
     List<CardCountField> rightColumnFields = [];
 
@@ -69,7 +67,9 @@ class CardCountScene extends StatelessWidget {
             title: Text('Card Count for ${player.name}'),
             centerTitle: true,
           ),
-          body: Container(
+          // TODO: Make this one row for portrait, and two rows for landscape
+
+          body: Center(
             child: Form(
               key: _cardCountKey,
               child: Row(
