@@ -160,6 +160,15 @@ void main() {
       expect(playerTwo.score, 2 + 5 + 5 + 2);
       expect(playerThree.score, 0 + 1 + 0 + 2);
       expect(playerFour.score, 4 + 0 + 1 + 2);
+
+      List<Player> sortedPlayers = [
+        playerTwo,
+        playerOne,
+        playerFour,
+        playerThree
+      ];
+
+      expect(sortedPlayers, data.getPlayerPlacement());
     });
   });
 }

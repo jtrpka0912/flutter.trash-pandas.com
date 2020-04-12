@@ -11,7 +11,6 @@ class TrashPandaData extends ChangeNotifier {
   List<Player> _players = [];
 
   void addPlayers(int howManyPlayers) {
-    print('Calling addPlayers ${howManyPlayers.toString()}');
     _players.clear(); // Reset the player listing
 
     if(howManyPlayers > 1 && howManyPlayers < 5) {
@@ -56,6 +55,15 @@ class TrashPandaData extends ChangeNotifier {
     for(Player player in _players) {
       player.increaseScore(player.getCardCount(CardNames.Blammo));
     }
+  }
+
+  List<Player> getPlayerPlacement() {
+    // Sort players by best to worst.
+    // TODO: This is still affecting the main player list.
+    List<Player> sortedPlayers = _players;
+    sortedPlayers.sort((playerA, playerB) => playerB.score.compareTo(playerA.score));
+
+    return sortedPlayers;
   }
 
   void _addCardPoints(

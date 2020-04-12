@@ -124,7 +124,14 @@ class CardCountScene extends StatelessWidget {
                         arguments: playerIndex + 1
                       );
                     } else {
-                      // Else: go to final tally
+                      trashPandaData.applyShinyCount();
+                      trashPandaData.applyFeeshCount();
+                      trashPandaData.applyYumYumCount();
+                      trashPandaData.applyMmmPieCount();
+                      trashPandaData.applyNannersCount();
+                      trashPandaData.applyBlammoCount();
+
+                      // Go to the final tally scene
                       Navigator.pushNamed(
                         context,
                         FinalTallyScene.routeName
