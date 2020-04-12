@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trashpandas/scenes/player_count.dart';
 import 'package:trashpandas/scenes/player_names.dart';
 import 'package:trashpandas/scenes/card_count.dart';
+import 'package:trashpandas/scenes/final_tally.dart';
 
 // Model
 import 'package:trashpandas/models/trash_panda_data.dart';
@@ -72,7 +73,8 @@ class MyApp extends StatelessWidget {
         routes: {
           PlayerCountScene.routeName: (context) => PlayerCountScene(),
           PlayerNamesScene.routeName: (context) => PlayerNamesScene(),
-          CardCountScene.routeName: (context) => CardCountScene()
+          CardCountScene.routeName: (context) => CardCountScene(),
+          FinalTallyScene.routeName: (context) => FinalTallyScene()
         }
       ),
     );

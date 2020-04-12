@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// Scenes
+import 'package:trashpandas/scenes/final_tally.dart';
+
 // Commons
 import 'package:trashpandas/commons/card_count_field.dart';
 
@@ -122,7 +125,10 @@ class CardCountScene extends StatelessWidget {
                       );
                     } else {
                       // Else: go to final tally
-                      print('Go to final score page');
+                      Navigator.pushNamed(
+                        context,
+                        FinalTallyScene.routeName
+                      );
                     }
                   }
                 },
