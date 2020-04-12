@@ -15,7 +15,6 @@ import 'package:trashpandas/models/enums.dart';
 
 class CardCountScene extends StatelessWidget {
   static const routeName = '/cards';
-
   final _cardCountKey = GlobalKey<FormState>();
 
   String nextOrFinal(int playerIndex, int playerCount) {
@@ -26,9 +25,12 @@ class CardCountScene extends StatelessWidget {
     return playerIndex + 1 < playerCount;
   }
 
-  List<CardCountField> constructCardCountFields(TrashPandaData trashPandaData, int playerIndex, bool isLeft) {
+  List<CardCountField> constructCardCountFields(BuildContext context, TrashPandaData trashPandaData, int playerIndex, [bool isLeft = false]) {
     List<CardCountField> leftColumnFields = [];
     List<CardCountField> rightColumnFields = [];
+    List<CardCountField> singleColumnFields = [];
+
+    Orientation currentOrientation = MediaQuery.of(context).orientation;
 
     // Loop through all of the card names
     // Then place some on the left and some on the right
@@ -39,19 +41,29 @@ class CardCountScene extends StatelessWidget {
         cardName: cardName
       );
 
-      if(iterator % 2 == 0) {
-        leftColumnFields.add(field);
+      if(currentOrientation == Orientation.landscape) {
+        // Landscape: Do two columns
+        if(iterator % 2 == 0) {
+          leftColumnFields.add(field);
+        } else {
+          rightColumnFields.add(field);
+        }
       } else {
-        rightColumnFields.add(field);
+        // Portrait: Just one column
+        singleColumnFields.add(field);
       }
 
       iterator++;
     }
 
-    if(isLeft) {
-      return leftColumnFields;
+    if(currentOrientation == Orientation.landscape) {
+      if(isLeft) {
+        return leftColumnFields;
+      } else {
+        return rightColumnFields;
+      }
     } else {
-      return rightColumnFields;
+      return singleColumnFields;
     }
   }
 
@@ -65,8 +77,8 @@ class CardCountScene extends StatelessWidget {
         return null;
       } else {
         return CardCountLayoutLandscape(
-          leftColumnFields: constructCardCountFields(trashPandaData, playerIndex, true),
-          rightColumnFields: constructCardCountFields(trashPandaData, playerIndex, true),
+          leftColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, true),
+          rightColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, true),
         );
       }
     }
@@ -81,8 +93,6 @@ class CardCountScene extends StatelessWidget {
             title: Text('Card Count for ${player.name}'),
             centerTitle: true,
           ),
-          // TODO: Make this one row for portrait, and two rows for landscape
-
           body: Center(
             child: Form(
               key: _cardCountKey,
