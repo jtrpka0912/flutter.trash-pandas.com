@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trashpandas/commons/card_count_field.dart';
 
 // Layouts
+import 'package:trashpandas/layout/card_count_portrait.dart';
 import 'package:trashpandas/layout/card_count_landscape.dart';
 
 // Models
@@ -26,10 +27,12 @@ class CardCountScene extends StatelessWidget {
   }
 
   List<CardCountField> constructCardCountFields(BuildContext context, TrashPandaData trashPandaData, int playerIndex, [bool isLeft = false]) {
+    // TODO: Maybe could use some refactoring.
     List<CardCountField> leftColumnFields = [];
     List<CardCountField> rightColumnFields = [];
     List<CardCountField> singleColumnFields = [];
 
+    // Retrieve the current orientation
     Orientation currentOrientation = MediaQuery.of(context).orientation;
 
     // Loop through all of the card names
@@ -73,8 +76,9 @@ class CardCountScene extends StatelessWidget {
 
     Widget layoutByOrientation(TrashPandaData trashPandaData) {
       if(MediaQuery.of(context).orientation == Orientation.portrait) {
-        print('Do something');
-        return null;
+        return CardCountLayoutPortrait(
+          fields: constructCardCountFields(context, trashPandaData, playerIndex)
+        );
       } else {
         return CardCountLayoutLandscape(
           leftColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, true),
