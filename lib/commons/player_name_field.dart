@@ -16,6 +16,7 @@ class PlayerNameField extends StatelessWidget {
     switch (playerIndex) {
       case 0:
         return 'one';
+        break;
       case 1:
         return 'two';
         break;
@@ -44,7 +45,7 @@ class PlayerNameField extends StatelessWidget {
               }
               return null;
             },
-            onChanged: (String playerName) {
+            onSaved: (String playerName) {
               trashPandaData.getPlayer(playerIndex).name = playerName;
             },
             decoration: InputDecoration(

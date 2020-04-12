@@ -58,6 +58,7 @@ class PlayerNamesScene extends StatelessWidget {
                 child: Text('Next'),
                 onPressed: () {
                   if(_playerNameKey.currentState.validate()) {
+                    _playerNameKey.currentState.save();
                     // Go to next scene
                     Navigator.pushNamed(
                       context,
