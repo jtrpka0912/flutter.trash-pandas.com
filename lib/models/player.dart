@@ -1,5 +1,4 @@
 // Models
-import 'package:flutter/material.dart';
 import 'package:trashpandas/models/enums.dart';
 
 class Player {

@@ -47,9 +47,9 @@ class CardCountField extends StatelessWidget {
             title: TextFormField(
               keyboardType: TextInputType.number,
               initialValue: trashPandaData
-                  .getPlayer(playerIndex)
-                  .getCardCount(CardNames.Shiny)
-                  .toString(),
+                .getPlayer(playerIndex)
+                .getCardCount(CardNames.Shiny)
+                .toString(),
               validator: (String numberOfCardsString) {
                 // Give me a bad value; i'll give you zero! :D
                 final int numberOfCards = int.tryParse(numberOfCardsString) ?? 0;
@@ -97,14 +97,14 @@ class CardCountField extends StatelessWidget {
               onSaved: (String numberOfCardsString) {
                 final int numberOfCards = int.tryParse(numberOfCardsString) ?? 0;
                 trashPandaData
-                    .getPlayer(playerIndex)
-                    .setCardCount(CardNames.Shiny, numberOfCards);
+                  .getPlayer(playerIndex)
+                  .setCardCount(CardNames.Shiny, numberOfCards);
               },
               decoration: InputDecoration(
-                  labelText: getCardName(cardName),
-                  labelStyle: formFieldTextStyles
+                labelText: getCardName(cardName),
+                labelStyle: formFieldTextStyles
               ),
-            ),
+            )
           )
         );
       },

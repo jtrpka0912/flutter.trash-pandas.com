@@ -25,19 +25,34 @@ class CardCountScene extends StatelessWidget {
 
   List<CardCountField> constructCardCountFields(
       TrashPandaData trashPandaData,
-      int playerIndex) {
-    List<CardCountField> fields = [];
+      int playerIndex,
+      bool isLeft) {
+    List<CardCountField> leftColumnFields = [];
+    List<CardCountField> rightColumnFields = [];
 
     // Loop through all of the card names
+    // Then place some on the left and some on the right
+    int iterator = 0; // Helpful to put cards on left and right
     for(CardNames cardName in CardNames.values) {
       CardCountField field = CardCountField(
         playerIndex: playerIndex,
         cardName: cardName
       );
-      fields.add(field);
+
+      if(iterator % 2 == 0) {
+        leftColumnFields.add(field);
+      } else {
+        rightColumnFields.add(field);
+      }
+
+      iterator++;
     }
 
-    return fields;
+    if(isLeft) {
+      return leftColumnFields;
+    } else {
+      return rightColumnFields;
+    }
   }
 
   @override
@@ -57,8 +72,20 @@ class CardCountScene extends StatelessWidget {
           body: Container(
             child: Form(
               key: _cardCountKey,
-              child: ListView(
-                children: constructCardCountFields(trashPandaData, playerIndex)
+              child: Row(
+                children: <Widget>[
+                  // Need to make it flexible to allow the text fields to adjust width
+                  Flexible(
+                    child: ListView(
+                      children: constructCardCountFields(trashPandaData, playerIndex, true),
+                    )
+                  ),
+                  Flexible(
+                    child: ListView(
+                      children: constructCardCountFields(trashPandaData, playerIndex, false),
+                    )
+                  )
+                ],
               )
             )
           ),
