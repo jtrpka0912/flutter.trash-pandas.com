@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // Models
 import 'package:trashpandas/models/player.dart';
-import 'package:trashpandas/models/enums.dart' as trashPandaEnum;
+import 'package:trashpandas/models/enums.dart';
 
 class TrashPandaData extends ChangeNotifier {
   // TODO: Look into UnModifiableListView
@@ -46,20 +46,20 @@ class TrashPandaData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void applyShinyCount() => _addCardPoints(trashPandaEnum.Card.Shiny, 3, 0, 0);
-  void applyYumYumCount() => _addCardPoints(trashPandaEnum.Card.YumYum, 4, 2, 0);
-  void applyFeeshCount() => _addCardPoints(trashPandaEnum.Card.Feesh, 5, 3, 1);
-  void applyMmmPieCount() => _addCardPoints(trashPandaEnum.Card.MmmPie, 6, 2, 1);
-  void applyNannersCount() => _addCardPoints(trashPandaEnum.Card.Nanners, 7, 0, 0);
+  void applyShinyCount() => _addCardPoints(CardNames.Shiny, 3, 0, 0);
+  void applyYumYumCount() => _addCardPoints(CardNames.YumYum, 4, 2, 0);
+  void applyFeeshCount() => _addCardPoints(CardNames.Feesh, 5, 3, 1);
+  void applyMmmPieCount() => _addCardPoints(CardNames.MmmPie, 6, 2, 1);
+  void applyNannersCount() => _addCardPoints(CardNames.Nanners, 7, 0, 0);
 
   void applyBlammoCount() {
     for(Player player in _players) {
-      player.increaseScore(player.getCardCount(trashPandaEnum.Card.Blammo));
+      player.increaseScore(player.getCardCount(CardNames.Blammo));
     }
   }
 
   void _addCardPoints(
-    trashPandaEnum.Card card,
+    CardNames card,
     int firstPlacePoints,
     int secondPlacePoints,
     int thirdPlacePoints
@@ -79,7 +79,7 @@ class TrashPandaData extends ChangeNotifier {
 
   int _playerPosition(
     Player mainPlayer,
-    trashPandaEnum.Card card,
+    CardNames card,
     int firstPlacePoints,
     int secondPlacePoints,
     int thirdPlacePoints

@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 // Models
 import 'package:trashpandas/models/trash_panda_data.dart';
 import 'package:trashpandas/models/player.dart';
-import 'package:trashpandas/models/enums.dart' as trashPandaEnum;
+import 'package:trashpandas/models/enums.dart';
 
 void main() {
   group('Player Tests', () {
@@ -64,12 +64,12 @@ void main() {
       expect(data.playerCount, 2);
 
       Player playerOne = data.getPlayer(0);
-      playerOne.setCardCount(trashPandaEnum.Card.Blammo, 3);
-      expect(playerOne.getCardCount(trashPandaEnum.Card.Blammo), 3);
+      playerOne.setCardCount(CardNames.Blammo, 3);
+      expect(playerOne.getCardCount(CardNames.Blammo), 3);
 
       Player playerTwo = data.getPlayer(1);
-      playerTwo.setCardCount(trashPandaEnum.Card.Blammo, 5);
-      expect(playerTwo.getCardCount(trashPandaEnum.Card.Blammo), 5);
+      playerTwo.setCardCount(CardNames.Blammo, 5);
+      expect(playerTwo.getCardCount(CardNames.Blammo), 5);
 
       data.applyBlammoCount();
 
@@ -83,13 +83,13 @@ void main() {
       expect(data.playerCount, 3);
 
       Player playerOne = data.getPlayer(0);
-      playerOne.setCardCount(trashPandaEnum.Card.Feesh, 3);
+      playerOne.setCardCount(CardNames.Feesh, 3);
 
       Player playerTwo = data.getPlayer(1);
-      playerTwo.setCardCount(trashPandaEnum.Card.Feesh, 5);
+      playerTwo.setCardCount(CardNames.Feesh, 5);
 
       Player playerThree = data.getPlayer(2);
-      playerThree.setCardCount(trashPandaEnum.Card.Feesh, 2);
+      playerThree.setCardCount(CardNames.Feesh, 2);
 
       data.applyFeeshCount();
 
@@ -104,13 +104,13 @@ void main() {
       expect(data.playerCount, 3);
 
       Player playerOne = data.getPlayer(0);
-      playerOne.setCardCount(trashPandaEnum.Card.YumYum, 1);
+      playerOne.setCardCount(CardNames.YumYum, 1);
 
       Player playerTwo = data.getPlayer(1);
-      playerTwo.setCardCount(trashPandaEnum.Card.YumYum, 2);
+      playerTwo.setCardCount(CardNames.YumYum, 2);
 
       Player playerThree = data.getPlayer(2);
-      playerThree.setCardCount(trashPandaEnum.Card.YumYum, 1);
+      playerThree.setCardCount(CardNames.YumYum, 1);
 
       data.applyYumYumCount();
 
@@ -125,31 +125,31 @@ void main() {
 
       Player playerOne = data.getPlayer(0);
       playerOne.name = 'Player One';
-      playerOne.setCardCount(trashPandaEnum.Card.YumYum, 1);
-      playerOne.setCardCount(trashPandaEnum.Card.Feesh, 3);
-      playerOne.setCardCount(trashPandaEnum.Card.Blammo, 3);
-      playerOne.setCardCount(trashPandaEnum.Card.Shiny, 1);
+      playerOne.setCardCount(CardNames.YumYum, 1);
+      playerOne.setCardCount(CardNames.Feesh, 3);
+      playerOne.setCardCount(CardNames.Blammo, 3);
+      playerOne.setCardCount(CardNames.Shiny, 1);
 
       Player playerTwo = data.getPlayer(1);
       playerTwo.name = 'Player Two';
-      playerTwo.setCardCount(trashPandaEnum.Card.YumYum, 2);
-      playerTwo.setCardCount(trashPandaEnum.Card.Feesh, 5);
-      playerTwo.setCardCount(trashPandaEnum.Card.Blammo, 5);
-      playerTwo.setCardCount(trashPandaEnum.Card.Shiny, 1);
+      playerTwo.setCardCount(CardNames.YumYum, 2);
+      playerTwo.setCardCount(CardNames.Feesh, 5);
+      playerTwo.setCardCount(CardNames.Blammo, 5);
+      playerTwo.setCardCount(CardNames.Shiny, 1);
 
       Player playerThree = data.getPlayer(2);
       playerThree.name = 'Player Three';
-      playerThree.setCardCount(trashPandaEnum.Card.YumYum, 1);
-      playerThree.setCardCount(trashPandaEnum.Card.Feesh, 2);
-      playerThree.setCardCount(trashPandaEnum.Card.Blammo, 0);
-      playerThree.setCardCount(trashPandaEnum.Card.Shiny, 1);
+      playerThree.setCardCount(CardNames.YumYum, 1);
+      playerThree.setCardCount(CardNames.Feesh, 2);
+      playerThree.setCardCount(CardNames.Blammo, 0);
+      playerThree.setCardCount(CardNames.Shiny, 1);
 
       Player playerFour = data.getPlayer(3);
       playerFour.name = 'Player Four';
-      playerFour.setCardCount(trashPandaEnum.Card.YumYum, 3);
-      playerFour.setCardCount(trashPandaEnum.Card.Feesh, 1);
-      playerFour.setCardCount(trashPandaEnum.Card.Blammo, 1);
-      playerFour.setCardCount(trashPandaEnum.Card.Shiny, 1);
+      playerFour.setCardCount(CardNames.YumYum, 3);
+      playerFour.setCardCount(CardNames.Feesh, 1);
+      playerFour.setCardCount(CardNames.Blammo, 1);
+      playerFour.setCardCount(CardNames.Shiny, 1);
 
       data.applyYumYumCount();
       data.applyFeeshCount();

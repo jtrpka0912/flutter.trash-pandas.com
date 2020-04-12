@@ -16,7 +16,7 @@ class PlayerNamesScene extends StatelessWidget {
 
   final _playerNameKey = GlobalKey<FormState>();
 
-  List<PlayerNameField> constructPlayerNameField(TrashPandaData trashPandaData) {
+  List<PlayerNameField> constructPlayerNameFields(TrashPandaData trashPandaData) {
     int playerCounter = trashPandaData.playerCount;
     List<PlayerNameField> fields = [];
 
@@ -46,7 +46,7 @@ class PlayerNamesScene extends StatelessWidget {
             child: Form(
               key: _playerNameKey,
               child: ListView(
-                children: constructPlayerNameField(trashPandaData).toList()
+                children: constructPlayerNameFields(trashPandaData).toList()
               )
             )
           ),
@@ -58,6 +58,7 @@ class PlayerNamesScene extends StatelessWidget {
                 child: Text('Next'),
                 onPressed: () {
                   if(_playerNameKey.currentState.validate()) {
+                    _playerNameKey.currentState.save();
                     // Go to next scene
                     Navigator.pushNamed(
                       context,

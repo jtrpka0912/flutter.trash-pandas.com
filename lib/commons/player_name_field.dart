@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// Commons
+import 'package:trashpandas/commons/styles.dart';
+
 // Models
 import 'package:trashpandas/models/trash_panda_data.dart';
 
@@ -16,6 +19,7 @@ class PlayerNameField extends StatelessWidget {
     switch (playerIndex) {
       case 0:
         return 'one';
+        break;
       case 1:
         return 'two';
         break;
@@ -44,15 +48,12 @@ class PlayerNameField extends StatelessWidget {
               }
               return null;
             },
-            onChanged: (String playerName) {
+            onSaved: (String playerName) {
               trashPandaData.getPlayer(playerIndex).name = playerName;
             },
             decoration: InputDecoration(
               labelText: 'Player ${_getPlayerNumberByWord(playerIndex)} name',
-              labelStyle: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500
-              ),
+              labelStyle: formFieldTextStyles,
             ),
           ),
         );

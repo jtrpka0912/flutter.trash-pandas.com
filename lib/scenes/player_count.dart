@@ -8,9 +8,6 @@ import 'package:trashpandas/models/trash_panda_data.dart';
 // Commons
 import 'package:trashpandas/commons/player_count_button.dart';
 
-// Scenes
-import 'package:trashpandas/scenes/player_names.dart';
-
 class PlayerCountScene extends StatefulWidget {
   static const routeName = '/';
 
