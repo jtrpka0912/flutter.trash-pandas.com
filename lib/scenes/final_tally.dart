@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 // Models
 import 'package:trashpandas/models/player.dart';
 import 'package:trashpandas/models/trash_panda_data.dart';
+import 'package:trashpandas/models/enums.dart';
 
 // Scenes
 import 'package:trashpandas/scenes/player_count.dart';
@@ -13,15 +14,22 @@ class FinalTallyScene extends StatelessWidget {
   static const routeName = '/final';
   
   List<Text> printPlacementOrder(TrashPandaData trashPandaData) {
-    List<Text> playerPlacement = [];
+    List<Text> textWidgets = [];
     int iterator = 1;
-    for(Player player in trashPandaData.getPlayerPlacement()) {
+    for(Player player in trashPandaData.getFinalPlayerTallyPlacement()) {
       Text playerText = Text('${iterator.toString()}. ${player.name} (${player.score})');
-      playerPlacement.add(playerText);
+      textWidgets.add(playerText);
+      textWidgets.add(Text('================'));
+
+      for(CardNames card in CardNames.values) {
+        Text scoreText = Text('${card.toString()}) ${player.getCardScore(card)} from ${player.getCardCount(card)} cards');
+        textWidgets.add(scoreText);
+      }
+
       iterator++;
     }
     
-    return playerPlacement;
+    return textWidgets;
   }
 
   @override

@@ -85,7 +85,7 @@ class CardCountScene extends StatelessWidget {
       } else {
         return CardCountLayoutLandscape(
           leftColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, true),
-          rightColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, true),
+          rightColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, false),
         );
       }
     }
@@ -114,7 +114,6 @@ class CardCountScene extends StatelessWidget {
                 onPressed: () {
                   if(_cardCountKey.currentState.validate()) {
                     _cardCountKey.currentState.save();
-                    print('I got ${trashPandaData.getPlayer(playerIndex).getCardCount(CardNames.Shiny)} ${CardNames.Shiny} cards.');
 
                     if(morePlayersAhead(playerIndex, trashPandaData.playerCount)) {
                       // Go to next player
@@ -124,6 +123,7 @@ class CardCountScene extends StatelessWidget {
                         arguments: playerIndex + 1
                       );
                     } else {
+                      trashPandaData.resetPlayerScores();
                       trashPandaData.applyShinyCount();
                       trashPandaData.applyFeeshCount();
                       trashPandaData.applyYumYumCount();

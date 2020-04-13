@@ -168,7 +168,7 @@ void main() {
         playerThree
       ];
 
-      expect(sortedPlayers, data.getPlayerPlacement());
+      expect(sortedPlayers, data.getFinalPlayerTallyPlacement());
     });
   });
 }

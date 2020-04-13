@@ -45,11 +45,11 @@ class TrashPandaData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void applyShinyCount() => _addCardPoints(CardNames.Shiny, 3, 0, 0);
-  void applyYumYumCount() => _addCardPoints(CardNames.YumYum, 4, 2, 0);
-  void applyFeeshCount() => _addCardPoints(CardNames.Feesh, 5, 3, 1);
-  void applyMmmPieCount() => _addCardPoints(CardNames.MmmPie, 6, 2, 1);
-  void applyNannersCount() => _addCardPoints(CardNames.Nanners, 7, 0, 0);
+  void applyShinyCount() => _addCardPoints(CardNames.Shiny, 3, 0, 0); // 2
+  void applyYumYumCount() => _addCardPoints(CardNames.YumYum, 4, 2, 0); // 3
+  void applyFeeshCount() => _addCardPoints(CardNames.Feesh, 5, 3, 1); // 4
+  void applyMmmPieCount() => _addCardPoints(CardNames.MmmPie, 6, 2, 1); // 5
+  void applyNannersCount() => _addCardPoints(CardNames.Nanners, 7, 0, 0); // 6
 
   void applyBlammoCount() {
     for(Player player in _players) {
@@ -57,46 +57,53 @@ class TrashPandaData extends ChangeNotifier {
     }
   }
 
-  List<Player> getPlayerPlacement() {
+  List<Player> getFinalPlayerTallyPlacement() {
     // Sort players by best to worst.
-    // TODO: This is still affecting the main player list.
-    List<Player> sortedPlayers = _players;
+    List<Player> sortedPlayers = List.from(_players);
     sortedPlayers.sort((playerA, playerB) => playerB.score.compareTo(playerA.score));
 
     return sortedPlayers;
   }
 
-  void _addCardPoints(
-    CardNames card,
-    int firstPlacePoints,
-    int secondPlacePoints,
-    int thirdPlacePoints
-  ) {
+  void resetPlayerScores() {
+    for(Player player in _players) {
+      player.resetScore();
+    }
+  }
+
+  void _addCardPoints(CardNames card, int firstPlacePoints, int secondPlacePoints, int thirdPlacePoints) {
     for(Player mainPlayer in _players) {
-      mainPlayer.increaseScore(
-        _playerPosition(
+      int score = _playerPosition(
           mainPlayer,
           card,
           firstPlacePoints,
           secondPlacePoints,
           thirdPlacePoints
-        )
       );
+
+      mainPlayer.setCardCount(card, score);
+      mainPlayer.increaseScore(score);
     }
   }
 
-  int _playerPosition(
-    Player mainPlayer,
-    CardNames card,
-    int firstPlacePoints,
-    int secondPlacePoints,
-    int thirdPlacePoints
-  ) {
+  int _playerPosition(Player mainPlayer, CardNames card, int firstPlacePoints, int secondPlacePoints, int thirdPlacePoints) {
     // Make a copy of the players list
     List<Player> otherPlayers = List.from(_players);
     otherPlayers.remove(mainPlayer); // Remove the main player from list
     bool isTied = false; // Initialize a flag if player tied with another player
     int higherThanPlayers = 0; // Make a count how players the main player beat
+
+    // Need to check if player(s) have any cards.
+
+    // If the main player has no cards; then they get 0 points regardless.
+    if(mainPlayer.getCardCount(card) <= 0) {
+     return 0;
+    }
+
+    // Remove other players if they have no cards
+    for(Player otherPlayer in otherPlayers) {
+      if(otherPlayer.getCardCount(card) <= 0) otherPlayers.remove(otherPlayer);
+    }
 
     // Loop through other players to check if main player either tied,
     //   or beat any players by card count.
@@ -120,6 +127,8 @@ class TrashPandaData extends ChangeNotifier {
     // If flagged for tie; then reduce the score by one point.
     // TODO: Need to refactor and made DRY
     switch(otherPlayers.length + 1) {
+      case 1:
+        return firstPlacePoints;
       case 2:
         switch(higherThanPlayers) {
           case 1:
