@@ -22,7 +22,7 @@ class FinalTallyScene extends StatelessWidget {
       textWidgets.add(Text('================'));
 
       for(CardNames card in CardNames.values) {
-        Text scoreText = Text('${card.toString()}) ${player.getCardScore(card)} from ${player.getCardCount(card)} cards');
+        Text scoreText = Text('${card.toString()}: ${player.getCardScore(card).toString()} from ${player.getCardCount(card).toString()} cards');
         textWidgets.add(scoreText);
       }
 
@@ -55,9 +55,10 @@ class FinalTallyScene extends StatelessWidget {
                   // TODO: Maybe add alert to confirm new game.
 
                   // Restart the stats
-                  trashPandaData = new TrashPandaData();
+                  trashPandaData.resetTrashPandas();
 
-                  Navigator.pushNamed(
+                  // Do not go back to the final tally screen
+                  Navigator.pushReplacementNamed(
                     context,
                     PlayerCountScene.routeName
                   );

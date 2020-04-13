@@ -7,7 +7,6 @@ import 'package:trashpandas/models/player.dart';
 import 'package:trashpandas/models/enums.dart';
 
 class TrashPandaData extends ChangeNotifier {
-  // TODO: Look into UnModifiableListView
   List<Player> _players = [];
 
   void addPlayers(int howManyPlayers) {
@@ -45,16 +44,13 @@ class TrashPandaData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void applyShinyCount() => _addCardPoints(CardNames.Shiny, 3, 0, 0); // 2
-  void applyYumYumCount() => _addCardPoints(CardNames.YumYum, 4, 2, 0); // 3
-  void applyFeeshCount() => _addCardPoints(CardNames.Feesh, 5, 3, 1); // 4
-  void applyMmmPieCount() => _addCardPoints(CardNames.MmmPie, 6, 2, 1); // 5
-  void applyNannersCount() => _addCardPoints(CardNames.Nanners, 7, 0, 0); // 6
-
-  void applyBlammoCount() {
-    for(Player player in _players) {
-      player.increaseScore(player.getCardCount(CardNames.Blammo));
-    }
+  void applyCardScores() {
+    _applyShinyCount();
+    _applyYumYumCount();
+    _applyFeeshCount();
+    _applyMmmPieCount();
+    _applyNannersCount();
+    _applyBlammoCount();
   }
 
   List<Player> getFinalPlayerTallyPlacement() {
@@ -71,9 +67,27 @@ class TrashPandaData extends ChangeNotifier {
     }
   }
 
+  void resetTrashPandas() {
+    _players.clear();
+  }
+
+  void _applyShinyCount() => _addCardPoints(CardNames.Shiny, 3, 0, 0);
+  void _applyYumYumCount() => _addCardPoints(CardNames.YumYum, 4, 2, 0);
+  void _applyFeeshCount() => _addCardPoints(CardNames.Feesh, 5, 3, 1);
+  void _applyMmmPieCount() => _addCardPoints(CardNames.MmmPie, 6, 2, 1);
+  void _applyNannersCount() => _addCardPoints(CardNames.Nanners, 7, 0, 0);
+
+  void _applyBlammoCount() {
+    for(Player player in _players) {
+      int points = player.getCardCount(CardNames.Blammo);
+      player.increaseScore(points);
+      player.setCardScore(CardNames.Blammo, points);
+    }
+  }
+
   void _addCardPoints(CardNames card, int firstPlacePoints, int secondPlacePoints, int thirdPlacePoints) {
     for(Player mainPlayer in _players) {
-      int score = _playerPosition(
+      int points = _playerPosition(
           mainPlayer,
           card,
           firstPlacePoints,
@@ -81,9 +95,11 @@ class TrashPandaData extends ChangeNotifier {
           thirdPlacePoints
       );
 
-      mainPlayer.setCardCount(card, score);
-      mainPlayer.increaseScore(score);
+      mainPlayer.setCardScore(card, points);
+      mainPlayer.increaseScore(points);
     }
+
+    notifyListeners();
   }
 
   int _playerPosition(Player mainPlayer, CardNames card, int firstPlacePoints, int secondPlacePoints, int thirdPlacePoints) {
@@ -100,14 +116,17 @@ class TrashPandaData extends ChangeNotifier {
      return 0;
     }
 
+    List<Player> otherPlayersWithCards = [];
     // Remove other players if they have no cards
     for(Player otherPlayer in otherPlayers) {
-      if(otherPlayer.getCardCount(card) <= 0) otherPlayers.remove(otherPlayer);
+      if(otherPlayer.getCardCount(card) > 0) {
+        otherPlayersWithCards.add(otherPlayer);
+      }
     }
 
     // Loop through other players to check if main player either tied,
     //   or beat any players by card count.
-    for(Player otherPlayer in otherPlayers) {
+    for(Player otherPlayer in otherPlayersWithCards) {
       int mainPlayerCardCount = mainPlayer.getCardCount(card);
       int otherPlayerCardCount = otherPlayer.getCardCount(card);
 
@@ -126,7 +145,7 @@ class TrashPandaData extends ChangeNotifier {
     // Get the number of points based on how many players the main player beat
     // If flagged for tie; then reduce the score by one point.
     // TODO: Need to refactor and made DRY
-    switch(otherPlayers.length + 1) {
+    switch(otherPlayersWithCards.length + 1) {
       case 1:
         return firstPlacePoints;
       case 2:
