@@ -148,10 +148,11 @@ class FinalTallyScene extends StatelessWidget {
                             // Restart the stats
                             trashPandaData.resetTrashPandas();
 
-                            // Do not go back to the final tally screen
-                            Navigator.pushReplacementNamed(
-                                context,
-                                PlayerCountScene.routeName
+                            // Do not allow to go back to the final tally screen
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              PlayerCountScene.routeName,
+                              (Route<dynamic> route) => false
                             );
                           },
                         ),
