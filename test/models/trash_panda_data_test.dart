@@ -71,7 +71,7 @@ void main() {
       playerTwo.setCardCount(CardNames.Blammo, 5);
       expect(playerTwo.getCardCount(CardNames.Blammo), 5);
 
-      data.applyBlammoCount();
+      data.applyCardScores();
 
       expect(playerOne.score, 3);
       expect(playerTwo.score, 5);
@@ -91,7 +91,7 @@ void main() {
       Player playerThree = data.getPlayer(2);
       playerThree.setCardCount(CardNames.Feesh, 2);
 
-      data.applyFeeshCount();
+      data.applyCardScores();
 
       expect(playerOne.score, 3);
       expect(playerTwo.score, 5);
@@ -112,7 +112,7 @@ void main() {
       Player playerThree = data.getPlayer(2);
       playerThree.setCardCount(CardNames.YumYum, 1);
 
-      data.applyYumYumCount();
+      data.applyCardScores();
 
       expect(playerOne.score, 1); // Gets one less (1 from 2) from tie
       expect(playerTwo.score, 4);
@@ -151,15 +151,21 @@ void main() {
       playerFour.setCardCount(CardNames.Blammo, 1);
       playerFour.setCardCount(CardNames.Shiny, 1);
 
-      data.applyYumYumCount();
-      data.applyFeeshCount();
-      data.applyBlammoCount();
-      data.applyShinyCount();
+      data.applyCardScores();
 
       expect(playerOne.score, 0 + 3 + 3 + 2);
       expect(playerTwo.score, 2 + 5 + 5 + 2);
       expect(playerThree.score, 0 + 1 + 0 + 2);
       expect(playerFour.score, 4 + 0 + 1 + 2);
+
+      List<Player> sortedPlayers = [
+        playerTwo,
+        playerOne,
+        playerFour,
+        playerThree
+      ];
+
+      expect(sortedPlayers, data.getFinalPlayerTallyPlacement());
     });
   });
 }

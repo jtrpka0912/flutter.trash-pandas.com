@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// Scenes
+import 'package:trashpandas/scenes/final_tally.dart';
+
 // Commons
 import 'package:trashpandas/commons/card_count_field.dart';
 
@@ -82,7 +85,7 @@ class CardCountScene extends StatelessWidget {
       } else {
         return CardCountLayoutLandscape(
           leftColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, true),
-          rightColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, true),
+          rightColumnFields: constructCardCountFields(context, trashPandaData, playerIndex, false),
         );
       }
     }
@@ -111,7 +114,6 @@ class CardCountScene extends StatelessWidget {
                 onPressed: () {
                   if(_cardCountKey.currentState.validate()) {
                     _cardCountKey.currentState.save();
-                    print('I got ${trashPandaData.getPlayer(playerIndex).getCardCount(CardNames.Shiny)} ${CardNames.Shiny} cards.');
 
                     if(morePlayersAhead(playerIndex, trashPandaData.playerCount)) {
                       // Go to next player
@@ -121,8 +123,14 @@ class CardCountScene extends StatelessWidget {
                         arguments: playerIndex + 1
                       );
                     } else {
-                      // Else: go to final tally
-                      print('Go to final score page');
+                      trashPandaData.resetPlayerScores();
+                      trashPandaData.applyCardScores();
+
+                      // Go to the final tally scene
+                      Navigator.pushNamed(
+                        context,
+                        FinalTallyScene.routeName
+                      );
                     }
                   }
                 },

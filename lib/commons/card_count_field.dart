@@ -48,7 +48,7 @@ class CardCountField extends StatelessWidget {
               keyboardType: TextInputType.number,
               initialValue: trashPandaData
                 .getPlayer(playerIndex)
-                .getCardCount(CardNames.Shiny)
+                .getCardCount(cardName)
                 .toString(),
               validator: (String numberOfCardsString) {
                 // Give me a bad value; i'll give you zero! :D
@@ -58,7 +58,6 @@ class CardCountField extends StatelessWidget {
                   return 'You can not have negative cards!';
                 }
 
-                // TODO: Separate this?
                 switch(cardName) {
                   case CardNames.Shiny:
                     if(numberOfCards > 3) {
@@ -98,7 +97,7 @@ class CardCountField extends StatelessWidget {
                 final int numberOfCards = int.tryParse(numberOfCardsString) ?? 0;
                 trashPandaData
                   .getPlayer(playerIndex)
-                  .setCardCount(CardNames.Shiny, numberOfCards);
+                  .setCardCount(cardName, numberOfCards);
               },
               decoration: InputDecoration(
                 labelText: getCardName(cardName),
