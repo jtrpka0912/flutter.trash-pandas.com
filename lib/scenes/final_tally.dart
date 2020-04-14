@@ -47,8 +47,8 @@ class FinalTallyScene extends StatelessWidget {
           child: Text(
             '${firstPlacePlayer.name}',
             style: TextStyle(
-                fontSize: 36.0,
-                fontWeight: FontWeight.w700
+              fontSize: 36.0,
+              fontWeight: FontWeight.w700
             ),
           ),
         ),
@@ -60,7 +60,7 @@ class FinalTallyScene extends StatelessWidget {
               Text(
                 'Won the game with ${firstPlacePlayer.score} points!',
                 style: TextStyle(
-                    fontSize: 24.0
+                  fontSize: 24.0
                 )
               ),
               // TODO: Reuse for both first player and other players
@@ -130,15 +130,47 @@ class FinalTallyScene extends StatelessWidget {
                 color: Theme.of(context).bottomAppBarTheme.color,
                 child: Text('New Game'),
                 onPressed: () {
-                  // TODO: Maybe add alert to confirm new game.
+                  showDialog(
+                    context: context,
+                    // Will need to bring up the iOS version
+                    builder: (_) => AlertDialog(
+                      title: Text('Start a new game...'),
+                      content: Text('Do you want to start a new game?'),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text(
+                            'Yes',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor
+                            ),
+                          ),
+                          onPressed: () {
+                            // Restart the stats
+                            trashPandaData.resetTrashPandas();
 
-                  // Restart the stats
-                  trashPandaData.resetTrashPandas();
-
-                  // Do not go back to the final tally screen
-                  Navigator.pushReplacementNamed(
-                    context,
-                    PlayerCountScene.routeName
+                            // Do not allow to go back to the final tally screen
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              PlayerCountScene.routeName,
+                              (Route<dynamic> route) => false
+                            );
+                          },
+                        ),
+                        FlatButton(
+                          child: Text(
+                            'No',
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor
+                            )
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                      elevation: 5.0,
+                    ),
+                    barrierDismissible: true,
                   );
                 },
               ),
