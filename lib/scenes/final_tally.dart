@@ -105,11 +105,6 @@ class FinalTallyScene extends StatelessWidget {
               otherPlayerWidget(trashPandaData)
             ]
           ),
-          bottomSheet: BottomSheet(
-            builder: (BuildContext context) {
-              return Column();
-            },
-          ),
           bottomNavigationBar: BottomAppBar(
             child: Builder(
               builder: (context) => FlatButton(

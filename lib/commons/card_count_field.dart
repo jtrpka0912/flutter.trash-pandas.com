@@ -9,19 +9,15 @@ import 'package:trashpandas/commons/styles.dart';
 import 'package:trashpandas/models/trash_panda_data.dart';
 import 'package:trashpandas/models/enums.dart';
 
+// Helpers
+import 'package:trashpandas/helper_functions.dart';
+
 class CardCountField extends StatelessWidget {
 
   final int playerIndex;
-  final CardNames cardName;
+  final CardNames card;
 
-  CardCountField({this.playerIndex, this.cardName});
-  
-  String getCardName(CardNames cardNameEnum) {
-    // This will output as CardNames.CardName. Need to separate.
-    List<String> cardNameArray = cardNameEnum.toString().split('.');
-    
-    return cardNameArray[1].toString();
-  }
+  CardCountField({this.playerIndex, this.card});
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +37,14 @@ class CardCountField extends StatelessWidget {
                 )
               ),
               child: Image.asset(
-                'assets/images/${getCardName(cardName).toLowerCase()}.png',
+                'assets/images/${getCardName(card).toLowerCase()}.png',
               ),
             ),
             title: TextFormField(
               keyboardType: TextInputType.number,
               initialValue: trashPandaData
                 .getPlayer(playerIndex)
-                .getCardCount(cardName)
+                .getCardCount(card)
                 .toString(),
               validator: (String numberOfCardsString) {
                 // Give me a bad value; i'll give you zero! :D
@@ -58,7 +54,7 @@ class CardCountField extends StatelessWidget {
                   return 'You can not have negative cards!';
                 }
 
-                switch(cardName) {
+                switch(card) {
                   case CardNames.Shiny:
                     if(numberOfCards > 3) {
                       return 'You can not have more than three Shiny cards.';
@@ -97,10 +93,10 @@ class CardCountField extends StatelessWidget {
                 final int numberOfCards = int.tryParse(numberOfCardsString) ?? 0;
                 trashPandaData
                   .getPlayer(playerIndex)
-                  .setCardCount(cardName, numberOfCards);
+                  .setCardCount(card, numberOfCards);
               },
               decoration: InputDecoration(
-                labelText: getCardName(cardName),
+                labelText: getCardName(card),
                 labelStyle: formFieldTextStyles
               ),
             )
