@@ -17,25 +17,6 @@ import 'package:trashpandas/scenes/player_count.dart';
 class FinalTallyScene extends StatelessWidget {
   static const routeName = '/final';
   
-  List<Text> printPlacementOrder(TrashPandaData trashPandaData) {
-    List<Text> textWidgets = [];
-    int iterator = 1;
-    for(Player player in trashPandaData.getFinalPlayerTallyPlacement()) {
-      Text playerText = Text('${iterator.toString()}. ${player.name} (${player.score})');
-      textWidgets.add(playerText);
-      textWidgets.add(Text('================'));
-
-      for(CardNames card in CardNames.values) {
-        Text scoreText = Text('${card.toString()}: ${player.getCardScore(card).toString()} from ${player.getCardCount(card).toString()} cards');
-        textWidgets.add(scoreText);
-      }
-
-      iterator++;
-    }
-    
-    return textWidgets;
-  }
-
   Widget firstPlayerWidget(TrashPandaData trashPandaData) {
     List<Player> players = trashPandaData.getFinalPlayerTallyPlacement();
     Player firstPlacePlayer = players[0];

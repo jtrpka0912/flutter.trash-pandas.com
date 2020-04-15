@@ -44,7 +44,7 @@ class CardCountScene extends StatelessWidget {
     for(CardNames cardName in CardNames.values) {
       CardCountField field = CardCountField(
         playerIndex: playerIndex,
-        cardName: cardName
+        card: cardName
       );
 
       if(currentOrientation == Orientation.landscape) {
